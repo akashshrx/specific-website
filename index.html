@@ -1,0 +1,3787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specific - Cloud platform built for coding agents</title>
+  <meta name="description" content="Let your coding agent both write code and build infrastructure to run it">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js"></script>
+</head>
+<body class="font-sans bg-[#101011] text-[#FFFFFF] min-h-screen flex flex-col antialiased">
+  
+<div hidden="">
+<!--$-->
+<!--/$-->
+</div>
+
+<main class="flex-1">
+<div class="min-h-screen">
+<div class="relative overflow-hidden">
+<!-- Spline 3D Wave Visual -->
+<spline-viewer class="absolute inset-0 w-full h-full -z-20 pointer-events-none" url="https://prod.spline.design/de399826-b9f3-4b1d-890f-7c261b47ebea/scene.splinecode"></spline-viewer>
+<!-- Canvas Overlay for flowing ASCII particles -->
+<canvas class="absolute inset-0 w-full h-full pointer-events-none -z-10">
+</canvas>
+<div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 140% 120% at 50% 100%, rgba(70, 70, 70, 1) 0%, rgba(60, 60, 60, 0.8) 20%, rgba(50, 50, 50, 0.4) 35%, transparent 55%)">
+</div>
+<header class="relative mx-auto max-w-7xl px-6 py-8">
+<nav class="flex items-center justify-between">
+<a href="/">
+<img alt="Specific" loading="lazy" width="120" height="28" decoding="async" data-nimg="1" style="color:transparent" src="logo.svg"/>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<ul class="flex items-center gap-8 text-base font-medium text-[#A2A2A2]">
+<li>
+<a class="text-white hover:text-white transition-colors" href="/">Home</a>
+</li>
+<li>
+<a href="https://docs.specific.dev" class=" hover:text-white transition-colors">Docs</a>
+</li>
+<li>
+<a class=" hover:text-white transition-colors" href="https://specific.dev/changelog">Changelog</a>
+</li>
+<li>
+<a class=" hover:text-white transition-colors" href="https://specific.dev/pricing">Pricing</a>
+</li>
+<li>
+<a href="mailto:hello@specific.dev" class=" hover:text-white transition-colors">Get in touch</a>
+</li>
+</ul>
+<a class="
+    inline-block
+    px-4 py-3
+    text-white font-medium text-center
+    border
+    rounded-[10px]
+    cursor-pointer
+    transition-all
+    hover:brightness-110
+    active:brightness-95
+    bg-[#252528] border-[#101012]
+    text-sm
+    
+  " style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+      0 2px 3px rgba(0, 0, 0, 0.1)" href="https://dashboard.specific.dev">Dashboard</a>
+</div>
+<button class="md:hidden flex flex-col justify-center items-center w-7 h-7 gap-1.5" aria-label="Toggle menu" aria-expanded="false">
+<span class="block w-5 h-0.5 bg-foreground-muted transition-all duration-300 ">
+</span>
+<span class="block w-5 h-0.5 bg-foreground-muted transition-all duration-300 ">
+</span>
+<span class="block w-5 h-0.5 bg-foreground-muted transition-all duration-300 ">
+</span>
+</button>
+</nav>
+</header>
+<main class="relative mx-auto max-w-7xl px-6 pb-12">
+<section class="pt-16">
+<div>
+<div class="flex flex-col items-start">
+<a href="https://www.ycombinator.com/companies/specific">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 440 60" alt="Backed by Y Combinator" class="h-6 backed-by-yc">
+<g id="Group">
+<g id="Y" fill-rule="evenodd" clip-rule="evenodd">
+<path id="Vector" fill="#F05F22" d="M139 60h60V0h-60z">
+</path>
+<path id="Vector_2" fill="#fff" d="M171.437 32.981v13.331h-5.062v-13.33l-12.919-19.294h6.169l9.3 14.25 9.262-14.25h6.169z">
+</path>
+</g>
+<g id="combinator" fill="#fff" fill-rule="evenodd" clip-rule="evenodd">
+<path id="Vector_3" d="M234.185 20.122c-5.55 0-9.712 4.294-9.712 9.843s4.162 9.882 9.712 9.882c3.563 0 6.656-1.838 8.325-4.931l4.763 2.83c-2.663 4.557-7.65 7.52-13.088 7.52-8.55-.02-15.337-6.807-15.337-15.3 0-8.513 6.787-15.3 15.337-15.3a15.09 15.09 0 0 1 13.088 7.518l-4.763 2.831c-1.687-3.093-4.762-4.893-8.325-4.893">
+</path>
+<path id="Vector_4" d="M265.573 33.828c0-3.469-2.532-6.094-5.794-6.094-3.356 0-5.888 2.625-5.888 6.094s2.532 6.094 5.888 6.094c3.206 0 5.794-2.625 5.794-6.094m-17.138 0c0-6.263 5.025-11.288 11.344-11.288 6.225 0 11.25 5.026 11.25 11.288s-5.025 11.287-11.25 11.287c-6.319 0-11.344-5.025-11.344-11.287">
+</path>
+<path id="Vector_5" d="M306.429 32.028v12.6h-5.438V32.984c0-3.262-1.593-5.324-3.993-5.324-2.457 0-4.257 2.062-4.257 5.324v11.644h-5.25V32.984c0-3.262-1.65-5.324-4.068-5.324-2.419 0-4.182 2.062-4.182 5.324v11.644h-5.437V23.066h5.437v2.756c1.332-2.062 3.394-3.356 5.925-3.356 2.757 0 4.932 1.556 6.263 3.975 1.369-2.156 3.9-3.975 7.087-3.975 4.782 0 7.913 4.218 7.913 9.562">
+</path>
+<path id="Vector_6" d="M325.76 34.053c0-3.6-2.231-6.187-5.362-6.187-3.057 0-5.363 2.456-5.363 6.131 0 3.656 2.363 6.131 5.456 6.131 3.038-.018 5.269-2.55 5.269-6.075m-4.219 11.138c-3 0-5.212-1.369-6.487-3.263v2.7h-5.438v-30h5.438v11.063c1.312-1.763 3.525-3.038 6.394-3.038 5.568 0 9.825 4.8 9.918 11.27.094 6.543-4.256 11.268-9.825 11.268">
+</path>
+<path id="Vector_7" d="M333.616 44.628h5.438V23.066h-5.438zm-.693-27.675c0-1.837 1.537-3.225 3.393-3.225 1.8 0 3.3 1.369 3.3 3.225 0 1.838-1.5 3.225-3.3 3.225-1.837-.019-3.393-1.387-3.393-3.225">
+</path>
+<path id="Vector_8" d="M362.491 32.122v12.506h-5.25V33.285c0-3.47-1.818-5.625-4.443-5.625-2.888 0-4.932 2.625-4.932 5.718v11.25h-5.25V23.066h5.25v2.719c1.463-2.026 3.807-3.32 6.544-3.32 4.838 0 8.081 4.126 8.081 9.657">
+</path>
+<path id="Vector_9" d="M378.991 35.066v-.469l-5.493 1.069c-1.838.431-2.963 1.369-2.963 2.625 0 1.331 1.219 2.325 3.225 2.269 2.888-.094 5.231-2.607 5.231-5.494m5.25-3.45v13.012h-5.25v-2.493c-1.593 1.725-4.087 3-6.843 3.056-3.657 0-6.882-2.4-6.882-6.525 0-3.9 2.925-6.131 7.275-6.994l6.319-1.2c-.431-1.8-1.8-3.169-3.881-3.169-2.063 0-3.994 1.294-5.156 2.925l-3.957-2.868c2.025-2.832 5.588-4.725 9.132-4.725 5.287-.038 9.243 3.618 9.243 8.98">
+</path>
+<path id="Vector_10" d="M395.304 27.94v9.038c0 1.763.769 2.569 2.362 2.569h2.7v5.062h-3.45c-4.593 0-6.862-2.25-6.862-6.975v-9.693h-3.938v-4.875h3.75V17.74l5.438-1.67v6.995h5.062v4.875z">
+</path>
+<path id="Vector_11" d="M419.285 33.828c0-3.469-2.531-6.094-5.794-6.094-3.356 0-5.887 2.625-5.887 6.094s2.531 6.094 5.887 6.094c3.207 0 5.794-2.625 5.794-6.094m-17.137 0c0-6.263 5.025-11.288 11.343-11.288 6.225 0 11.25 5.026 11.25 11.288s-5.025 11.287-11.25 11.287c-6.318 0-11.343-5.025-11.343-11.287">
+</path>
+<path id="Vector_12" d="M439.741 22.597v5.231c-4.856 0-6.937 2.363-6.937 5.456v11.344h-5.25V23.066h5.25v2.7c1.481-1.932 3.862-3.17 6.937-3.17">
+</path>
+</g>
+<path id="backed-by" fill="#fff" d="M10.152 27.568c1.296-.672 2.088-1.824 2.088-3.408 0-2.688-2.256-4.68-5.232-4.68H0V35.8h7.296c2.976 0 5.208-2.016 5.208-4.704 0-1.704-.912-2.88-2.352-3.528M7.008 21.88c1.704 0 2.712.96 2.712 2.28 0 1.296-1.032 2.28-2.712 2.28H2.52v-4.56zm.288 11.52H2.52v-4.56h4.776c1.68 0 2.688.936 2.688 2.256S8.976 33.4 7.296 33.4m13.228-9.864c-1.8 0-3.672 1.008-4.704 2.52l1.944 1.368c.576-.984 1.752-1.704 2.952-1.704 1.464 0 2.184 1.032 2.376 2.16l-3.744.72c-2.112.408-3.96 1.512-3.96 3.816s1.824 3.624 3.936 3.624c1.68 0 3.096-.84 3.816-1.896V35.8h2.4v-7.32c0-2.976-2.016-4.944-5.016-4.944M19.9 33.832c-1.224 0-2.112-.624-2.112-1.512 0-.936.984-1.44 2.016-1.68l3.336-.672v.864c0 1.848-1.536 3-3.24 3m18.197-1.824c-.744 1.104-1.968 1.752-3.24 1.752-2.112 0-3.648-1.752-3.648-3.984s1.536-3.984 3.648-3.984c1.272 0 2.496.648 3.24 1.752l2.016-1.176c-1.152-1.728-3.096-2.856-5.28-2.856-3.48 0-6.024 2.784-6.024 6.264s2.544 6.264 6.024 6.264c2.184 0 4.128-1.128 5.28-2.856zM54.062 23.8h-3.168l-5.232 5.448V19h-2.4v16.8h2.4v-3.552l1.92-1.944 3.672 5.496h2.808l-4.728-7.248zm12.457 4.968c-.408-3.672-2.928-5.208-5.496-5.208-3.48 0-5.784 2.784-5.784 6.24s2.304 6.24 5.784 6.24c2.184 0 4.248-1.128 5.28-2.856l-2.016-1.176c-.576 1.032-1.848 1.752-3.288 1.752-1.776 0-2.928-1.056-3.24-2.856h8.76a10.6 10.6 0 0 0 0-2.136m-5.568-2.928c1.488 0 3.096.84 3.168 2.904h-6.384c.312-1.8 1.392-2.904 3.216-2.904M78.433 19v6.528c-.672-1.128-1.944-1.968-3.672-1.968-3.072 0-5.4 2.592-5.424 6.24-.024 3.72 2.352 6.24 5.4 6.24 1.824 0 3.072-.912 3.696-2.112V35.8h2.4V19zm-3.288 14.76c-2.088 0-3.408-1.704-3.408-3.96s1.32-3.96 3.408-3.96 3.408 1.704 3.408 3.96-1.32 3.96-3.408 3.96m29.299-3.96c-.024-3.648-2.352-6.24-5.424-6.24-1.728 0-3 .84-3.672 1.968V19h-2.4v16.8h2.4v-1.872c.624 1.2 1.872 2.112 3.696 2.112 3.048 0 5.424-2.52 5.4-6.24m-5.808 3.96c-2.088 0-3.408-1.704-3.408-3.96s1.32-3.96 3.408-3.96 3.408 1.704 3.408 3.96-1.32 3.96-3.408 3.96m17.757-9.96-3.504 8.424-3.744-8.424h-2.64l5.112 11.448-2.232 5.352h2.544l6.936-16.8z">
+</path>
+</g>
+</svg>
+</a>
+</div>
+<h1 class="font-medium text-white text-left mt-3 md:mt-5 leading-[1.1]" style="font-size:clamp(1.875rem, 1rem + 4vw, 72px)">The cloud platform<br/>built for coding agents</h1>
+</div>
+<div class="mt-5 md:mt-9 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-6 lg:gap-10">
+<p class="font-normal text-foreground-muted text-left leading-[1.6] flex-1 lg:max-w-3/4" style="font-size:clamp(0.875rem, 0.5rem + 1vw, 1.5rem)">Specific lets your coding agent both write code and build infrastructure to run it.<br class="hidden lg:inline"/> Build from scratch and deploy to production in minutes.</p>
+<button class="
+          inline-block
+          px-4 py-3
+          text-white font-medium text-center
+          border
+          rounded-[10px]
+          cursor-pointer
+          transition-all
+          hover:brightness-110
+          active:brightness-95
+          bg-[#2366EC] border-[#03308B]
+          text-sm
+          shrink-0 self-start lg:self-center text-sm lg:text-lg lg:px-6 lg:py-4
+        " style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+      0 2px 3px rgba(0, 0, 0, 0.1)">
+<span class="inline-flex items-center gap-2">Get started in minutes<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline-block">
+<path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</svg>
+</span>
+</button>
+</div>
+<div class="relative mt-16 md:mt-18">
+<div class="absolute pointer-events-none hidden md:block" style="width:110%;height:100%;left:-5%;top:calc(100% + 2px);perspective:1200px;z-index:0">
+<div style="width:100%;height:100%;background:radial-gradient(ellipse at center top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);transform:rotateX(85deg) scaleX(0.9) scaleY(0.2);transform-origin:center top;filter:blur(35px)">
+</div>
+</div>
+<div class="relative overflow-hidden sm:overflow-visible -mr-6 sm:mr-0">
+<div class="relative rounded-xl p-px z-[1] min-w-[600px] sm:min-w-0" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+<div class="rounded-xl overflow-hidden h-full">
+<img src="hero-capture.png" alt="Infrastructure diagram" class="w-full border-[5px] border-[#171717]"/>
+</div>
+</div>
+<div class="absolute top-0 right-0 bottom-0 w-32 pointer-events-none sm:hidden z-[2]" style="background:linear-gradient(to right, transparent, #101011 80%)">
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<section class="pt-24">
+<div class="mx-auto max-w-7xl px-6 mb-12">
+<h2 class="text-3xl md:text-4xl font-medium text-white">Ready, set, deploy</h2>
+</div>
+<div class="w-full h-px bg-[#515151]">
+</div>
+<div class="mx-auto max-w-7xl px-6">
+<div class="grid grid-cols-1 md:grid-cols-3">
+<div class="py-8 md:py-10 lg:py-12 pr-6 flex flex-col md:border-r border-[#515151]">
+<div class="relative mb-6 md:mb-0 md:flex-1 md:flex md:items-center pr-6 lg:pr-10 overflow-hidden">
+<div class="flex flex-col gap-4 w-full overflow-hidden">
+  
+  <!-- Row 1: Left Moving Carousel -->
+  <div class="overflow-hidden w-full relative py-1">
+    <div class="flex gap-3 w-max animate-marquee-left hover:pause">
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Windsurf</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/cursor.svg" alt="Cursor" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Cursor</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/gemini.svg" alt="Gemini" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Gemini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Windsurf</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/cursor.svg" alt="Cursor" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Cursor</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/gemini.svg" alt="Gemini" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Gemini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Right Moving Carousel -->
+  <div class="overflow-hidden w-full relative py-1">
+    <div class="flex gap-3 w-max animate-marquee-right hover:pause">
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Aider</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/claude.svg" alt="Claude Code" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Claude Code</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full justify-center">
+              <img src="logos/copilot.svg" alt="Copilot" class="h-7"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Aider</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/claude.svg" alt="Claude Code" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Claude Code</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full justify-center">
+              <img src="logos/copilot.svg" alt="Copilot" class="h-7"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3: Left Moving Carousel -->
+  <div class="overflow-hidden w-full relative py-1">
+    <div class="flex gap-3 w-max animate-marquee-left hover:pause">
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Devin</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/codex.svg" alt="Codex" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Codex</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full justify-center">
+              <img src="logos/opencode.svg" alt="opencode" class="h-4"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <span class="text-white text-lg font-medium whitespace-nowrap">Devin</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full gap-2.5">
+              <img src="logos/codex.svg" alt="Codex" class="h-6"/>
+              <span class="text-white text-lg font-medium whitespace-nowrap">Codex</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative rounded-md p-px shrink-0 float-logo transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(35,102,236,0.35)]" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+          <div class="rounded-md overflow-hidden h-full">
+            <div class="bg-[#28282C] flex items-center px-4 py-2 h-full justify-center">
+              <img src="logos/opencode.svg" alt="opencode" class="h-4"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 90% at center, transparent 25%, var(--background) 80%)">
+</div>
+</div>
+<div class="md:hidden flex flex-col gap-4">
+<h3 class="text-2xl font-mono font-medium text-white">init</h3>
+<p class="leading-relaxed text-[#cfcfcf]">Build with your coding agent in any programming language and framework. Your coding agent uses Specific to automatically configure databases, secrets, services and more, without SDKs</p>
+</div>
+<div class="md:hidden -mx-6 mt-8 h-px bg-[#515151]">
+</div>
+</div>
+<div class="py-8 md:py-10 lg:py-12 md:px-6 lg:px-10 flex flex-col md:block md:border-r border-[#515151]">
+<div class="flex items-center mb-6 md:mb-0">
+<div class="relative rounded-lg p-px w-full max-w-sm lg:max-w-none" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+<div class="rounded-lg overflow-hidden h-full">
+<div class="bg-[#28282C] font-mono text-[13px] leading-relaxed">
+<div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06]">
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+</div>
+<div id="terminal-dev-body" class="px-3 py-3 font-mono text-[13px] leading-relaxed min-h-[185px]">
+                  <span class="text-[#6d6d6d]">&gt;</span> <span class="text-white cursor-blink-target"></span><span class="terminal-cursor bg-[#2366EC] w-1.5 h-3.5 inline-block vertical-middle ml-0.5 animate-blink"></span>
+                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:hidden flex flex-col gap-4">
+<h3 class="text-2xl font-mono font-medium text-white">dev</h3>
+<p class="leading-relaxed text-[#cfcfcf]">Specific spins up a full, local development environment with all dependencies ready and a convenient admin interface. No manual setup required.</p>
+</div>
+<div class="md:hidden -mx-6 mt-8 h-px bg-[#515151]">
+</div>
+</div>
+<div class="py-8 md:py-10 lg:py-12 md:pl-6 lg:pl-10 flex flex-col md:block">
+<div class="flex items-center mb-6 md:mb-0">
+<div class="relative rounded-lg p-px w-full max-w-sm lg:max-w-none" style="background:radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%)">
+<div class="rounded-lg overflow-hidden h-full">
+<div class="bg-[#28282C] font-mono text-[13px] leading-relaxed">
+<div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06]">
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#3a3a3c]">
+</div>
+</div>
+<div id="terminal-deploy-body" class="px-3 py-3 font-mono text-[13px] leading-relaxed min-h-[220px]">
+                  <span class="text-[#6d6d6d]">&gt;</span> <span class="text-white">specific deploy</span>
+                  <div class="terminal-deploy-lines mt-2 space-y-1"></div>
+                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:hidden flex flex-col gap-4">
+<h3 class="text-2xl font-mono font-medium text-white">deploy</h3>
+<p class="leading-relaxed text-[#cfcfcf]">When you are ready, you can deploy your entire app with a single command to our secure and scalable cloud platform.</p>
+</div>
+</div>
+<div class="hidden md:flex border-r border-[#515151] pb-10 lg:pb-12 pr-6 lg:pr-10 flex-col gap-3 lg:gap-4">
+<h3 class="text-xl lg:text-2xl font-mono font-medium text-white">init</h3>
+<p class="leading-relaxed text-[#cfcfcf] text-sm lg:text-base">Build with your coding agent in any programming language and framework. Your coding agent uses Specific to automatically configure databases, secrets, services and more, without SDKs</p>
+</div>
+<div class="hidden md:flex border-r border-[#515151] pb-10 lg:pb-12 px-6 lg:px-10 flex-col gap-3 lg:gap-4">
+<h3 class="text-xl lg:text-2xl font-mono font-medium text-white">dev</h3>
+<p class="leading-relaxed text-[#cfcfcf] text-sm lg:text-base">Specific spins up a full, local development environment with all dependencies ready and a convenient admin interface. No manual setup required.</p>
+</div>
+<div class="hidden md:flex pb-10 lg:pb-12 pl-6 lg:pl-10 flex-col gap-3 lg:gap-4">
+<h3 class="text-xl lg:text-2xl font-mono font-medium text-white">deploy</h3>
+<p class="leading-relaxed text-[#cfcfcf] text-sm lg:text-base">When you are ready, you can deploy your entire app with a single command to our secure and scalable cloud platform.</p>
+</div>
+</div>
+</div>
+<div class="w-full h-px bg-[#515151]">
+</div>
+</section>
+<section class="relative py-32 border-b border-[#515151] overflow-hidden">
+<canvas class="absolute inset-0 w-full h-full pointer-events-none absolute inset-0 w-full h-full opacity-60">
+</canvas>
+<div class="relative">
+<div class="mx-auto max-w-3xl px-6 text-center">
+<h2 class="text-3xl md:text-4xl font-medium text-white">Building blocks over frameworks</h2>
+<p class="mt-7 text-lg md:text-xl font-normal text-foreground-muted max-w-3xl mx-auto">Specific provides all the building blocks you and your agent need to build quickly and scale forever. Use whatever language and framework you like.</p>
+</div>
+<div class="lg:hidden px-6 mt-16 space-y-16">
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/frontend.svg" alt="" class="w-full"/>
+<img src="mobile/frontend_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Use any frontend framework and get an auto-generated domain name, automatic TLS certificates and global CDN caching</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/configs_secrets.svg" alt="" class="w-full"/>
+<img src="mobile/configs_secrets_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Store and manage all your secrets and configurations securely, no manual integration needed.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/backend.svg" alt="" class="w-full"/>
+<img src="mobile/backend_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Define any number of backend services and cron jobs with effortless scaling and secure inter-service communication</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/database.svg" alt="" class="w-full"/>
+<img src="mobile/database_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Spin up managed Postgres databases with bottomless storage, scaling and read replicas. All databases support vector and full-text search.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/sync.svg" alt="" class="w-full"/>
+<img src="mobile/sync_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Use the built-in sync engine to build performant real-time, collaborative or local-first apps with data straight from Postgres.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/storage.svg" alt="" class="w-full"/>
+<img src="mobile/storage_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Store images, videos and other large files with our globally replicated S3-compatible storage.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/cache.svg" alt="" class="w-full"/>
+<img src="mobile/cache_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Use our Redis-compatible cache service to speed up critical parts of your app</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="relative mb-6 w-full max-w-sm">
+<img src="mobile/envs.svg" alt="" class="w-full"/>
+<img src="mobile/envs_blue.svg" alt="" class="absolute inset-0 w-full transition-opacity duration-300 opacity-0"/>
+</div>
+<p class="text-base text-center max-w-lg transition-colors duration-300 text-[#A2A2A2]">Replicate your infra into any number of environments and create preview environments in seconds with real data. Run your app locally with no setup, for the best developer experience.</p>
+</div>
+</div>
+<div class="hidden lg:flex mx-auto max-w-7xl px-6 mt-24 items-stretch text-[#A2A2A2]">
+<div class="flex-1 relative">
+<div class="absolute left-0 top-[7%] -translate-y-1/2 pr-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:7%" data-index-left="7%">Use any frontend framework and get an auto-generated domain name, automatic TLS certificates and global CDN caching<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-0 right-12">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+<div class="absolute left-0 top-[34%] -translate-y-1/2 pr-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:34%" data-index-left="34%">Define any number of backend services and cron jobs with effortless scaling and secure inter-service communication<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-0 right-12">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+<div class="absolute left-0 top-[57%] -translate-y-1/2 pr-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:57%" data-index-left="57%">Use the built-in sync engine to build performant real-time, collaborative or local-first apps with data straight from Postgres.<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-0 right-12">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+<div class="absolute left-0 top-[81%] -translate-y-1/2 pr-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:81%" data-index-left="81%">Use our Redis-compatible cache service to speed up critical parts of your app<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-0 right-12">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 761 1809" class="w-xs lg:w-md shrink-0 building-blocks-svg">
+<g id="test 2">
+<path id="Vector" fill="#999" d="M9.111 8.651v5.605h5.631v2.138h-5.63v5.605H6.984v-5.605H1.367v-2.138h5.618V8.651z">
+</path>
+<path id="Vector_2" fill="#999" d="M9.39 34.376v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_3" fill="#999" d="M9.39 64.997v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_4" fill="#999" d="M9.39 95.618v25.911H7.213v-25.91z">
+</path>
+<path id="Vector_5" fill="#999" d="M9.39 126.24v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_6" fill="#999" d="M9.39 156.861v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_7" fill="#999" d="M9.39 187.482v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_8" fill="#999" d="M9.39 218.103v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_9" fill="#999" d="M9.39 248.724v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_10" fill="#999" d="M9.39 279.345v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_11" fill="#999" d="M9.39 309.966v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_12" fill="#999" d="M9.39 340.587v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_13" fill="#999" d="M9.39 371.208v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_14" fill="#999" d="M9.39 401.829v25.911H7.213v-25.911z">
+</path>
+<path id="Vector_15" fill="#999" d="M9.39 432.45v25.911H7.213V432.45z">
+</path>
+<path id="Vector_16" fill="#999" d="M9.39 463.072v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_17" fill="#999" d="M9.39 493.693v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_18" fill="#999" d="M9.39 524.314v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_19" fill="#999" d="M9.39 554.935v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_20" fill="#999" d="M9.39 585.556v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_21" fill="#999" d="M9.39 616.177v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_22" fill="#999" d="M9.39 646.798v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_23" fill="#999" d="M9.39 677.419v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_24" fill="#999" d="M9.39 708.04v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_25" fill="#999" d="M9.39 738.661v25.911H7.213v-25.911z">
+</path>
+<path id="Vector_26" fill="#999" d="M9.39 769.282v25.911H7.213v-25.911z">
+</path>
+<path id="Vector_27" fill="#999" d="M9.39 799.904v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_28" fill="#999" d="M9.39 830.525v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_29" fill="#999" d="M9.39 861.146v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_30" fill="#999" d="M9.39 891.767v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_31" fill="#999" d="M9.39 922.388v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_32" fill="#999" d="M9.39 953.009v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_33" fill="#999" d="M9.39 983.63v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_34" fill="#999" d="M9.39 1014.25v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_35" fill="#999" d="M9.39 1044.87v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_36" fill="#999" d="M9.39 1075.49v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_37" fill="#999" d="M9.39 1106.11v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_38" fill="#999" d="M9.39 1136.74v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_39" fill="#999" d="M9.39 1167.36v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_40" fill="#999" d="M9.39 1197.98v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_41" fill="#999" d="M9.39 1228.6v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_42" fill="#999" d="M9.39 1259.22v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_43" fill="#999" d="M9.39 1289.84v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_44" fill="#999" d="M9.39 1320.46v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_45" fill="#999" d="M9.39 1351.08v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_46" fill="#999" d="M9.39 1381.7v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_47" fill="#999" d="M9.39 1412.33v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_48" fill="#999" d="M9.39 1442.95v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_49" fill="#999" d="M9.39 1473.57v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_50" fill="#999" d="M9.39 1504.19v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_51" fill="#999" d="M9.39 1534.81v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_52" fill="#999" d="M9.39 1565.43v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_53" fill="#999" d="M9.39 1596.05v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_54" fill="#999" d="M9.39 1626.67v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_55" fill="#656565" d="m53.185 1750.07 9.946 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_56" fill="#656565" d="m53.185 1780.69 9.946 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_57" fill="#656565" d="m69.677 1750.07 9.946 21.29H77.22l-9.96-21.29z">
+</path>
+<path id="Vector_58" fill="#656565" d="m69.677 1780.69 9.946 21.29H77.22l-9.96-21.29z">
+</path>
+<path id="Vector_59" fill="#656565" d="m86.17 1750.07 9.945 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_60" fill="#656565" d="m86.17 1780.69 9.945 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_61" fill="#656565" d="m102.661 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_62" fill="#656565" d="m102.661 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_63" fill="#656565" d="m119.154 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_64" fill="#656565" d="m119.154 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_65" fill="#656565" d="m135.646 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_66" fill="#656565" d="m135.646 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_67" fill="#656565" d="m152.138 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_68" fill="#656565" d="m152.138 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_69" fill="#656565" d="m168.63 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_70" fill="#656565" d="m168.63 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_71" fill="#656565" d="m185.123 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_72" fill="#656565" d="m185.123 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_73" fill="#656565" d="m201.615 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_74" fill="#656565" d="m201.615 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_75" fill="#656565" d="m218.107 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_76" fill="#656565" d="m218.107 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_77" fill="#656565" d="m234.599 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_78" fill="#656565" d="m234.599 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_79" fill="#656565" d="m251.092 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_80" fill="#656565" d="m251.092 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_81" fill="#656565" d="m267.584 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_82" fill="#656565" d="m267.584 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_83" fill="#656565" d="m284.076 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_84" fill="#656565" d="m284.076 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_85" fill="#656565" d="m300.568 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_86" fill="#656565" d="m300.568 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_87" fill="#656565" d="m317.061 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_88" fill="#656565" d="m317.061 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_89" fill="#656565" d="m333.553 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_90" fill="#656565" d="m333.553 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_91" fill="#656565" d="m350.045 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_92" fill="#656565" d="m350.045 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_93" fill="#656565" d="m366.537 1750.07 9.947 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_94" fill="#656565" d="m366.537 1780.69 9.947 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_95" fill="#656565" d="m383.03 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_96" fill="#656565" d="m383.03 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_97" fill="#656565" d="m399.522 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_98" fill="#656565" d="m399.522 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_99" fill="#656565" d="m416.014 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_100" fill="#656565" d="m416.014 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_101" fill="#656565" d="m432.506 1750.07 9.947 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_102" fill="#656565" d="m432.506 1780.69 9.947 21.29h-2.404l-9.96-21.29z">
+</path>
+<path id="Vector_103" fill="#656565" d="m448.999 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_104" fill="#656565" d="m448.999 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_105" fill="#656565" d="m465.491 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_106" fill="#656565" d="m465.491 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_107" fill="#656565" d="m481.983 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_108" fill="#656565" d="m481.983 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_109" fill="#656565" d="m498.476 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_110" fill="#656565" d="m498.476 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_111" fill="#656565" d="m514.968 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_112" fill="#656565" d="m514.968 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_113" fill="#656565" d="m531.46 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_114" fill="#656565" d="m531.46 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_115" fill="#656565" d="m547.952 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_116" fill="#656565" d="m547.952 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_117" fill="#656565" d="m564.445 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_118" fill="#656565" d="m564.445 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_119" fill="#656565" d="m580.937 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_120" fill="#656565" d="m580.937 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_121" fill="#656565" d="m597.429 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_122" fill="#656565" d="m597.429 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_123" fill="#656565" d="m613.921 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_124" fill="#656565" d="m613.921 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_125" fill="#656565" d="m630.414 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_126" fill="#656565" d="m630.414 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_127" fill="#656565" d="m646.906 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_128" fill="#656565" d="m646.906 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_129" fill="#656565" d="m663.398 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_130" fill="#656565" d="m663.398 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_131" fill="#656565" d="m679.89 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_132" fill="#656565" d="m679.89 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_133" fill="#656565" d="m696.383 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_134" fill="#656565" d="m696.383 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_135" fill="#656565" d="m712.875 1750.07 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_136" fill="#656565" d="m712.875 1780.69 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_137" fill="#656565" d="m729.367 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_138" fill="#656565" d="m729.367 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_139" fill="#656565" d="m745.859 1750.07 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_140" fill="#656565" d="m745.859 1780.69 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_141" fill="#999" d="M562.028 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_142" fill="#999" d="M578.52 1729.18h13.414v2.13H578.52z">
+</path>
+<path id="Vector_143" fill="#999" d="M595.012 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_144" fill="#999" d="M611.504 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_145" fill="#999" d="M627.997 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_146" fill="#999" d="M644.489 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_147" fill="#999" d="M660.981 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_148" fill="#999" d="M677.473 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_149" fill="#999" d="M701.786 1723.43v5.61h5.631v2.14h-5.631v5.6h-2.126v-5.6h-5.618v-2.14h5.618v-5.61z">
+</path>
+<path id="Vector_150" fill="#656565" d="m712.875 1719.45 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_151" fill="#656565" d="m729.367 1719.45 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_152" fill="#656565" d="m745.859 1719.45 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_153" fill="#fff" d="M38.034 1690.93v7.09h2.96q1.772 0 2.766-.93c.662-.63.993-1.5.993-2.62q0-1.68-.987-2.61t-2.771-.93zm-2.557-2.1h5.518c2.109 0 3.708.47 4.796 1.43s1.632 2.36 1.632 4.21c0 1.86-.542 3.27-1.626 4.22-1.084.96-2.685 1.43-4.802 1.43h-2.961v7.59h-2.557z">
+</path>
+<path id="Vector_154" fill="#fff" d="M59.094 1698.8c.658.16 1.22.48 1.683.95s1.042 1.4 1.734 2.8l2.569 5.16h-2.746l-2.253-4.76c-.65-1.36-1.234-2.24-1.752-2.63-.52-.39-1.196-.59-2.031-.59h-2.443v7.98h-2.569v-18.88h5.265c2.075 0 3.665.46 4.77 1.4 1.106.94 1.658 2.29 1.658 4.06q0 1.875-1.019 3.06c-.679.79-1.634 1.27-2.866 1.45m-5.239-7.87v6.7h2.797c1.223 0 2.134-.27 2.733-.82q.9-.825.899-2.52c0-1.09-.319-1.92-.956-2.5-.637-.57-1.562-.86-2.777-.86z">
+</path>
+<path id="Vector_155" fill="#fff" d="M77.421 1698.29c0-2.78-.284-4.76-.854-5.95s-1.504-1.78-2.803-1.78c-1.29 0-2.22.59-2.79 1.78s-.854 3.17-.854 5.95c0 2.77.284 4.74.854 5.93s1.5 1.79 2.79 1.79c1.3 0 2.234-.6 2.803-1.78q.855-1.785.854-5.94m2.67 0c0 3.29-.52 5.74-1.562 7.36q-1.563 2.43-4.765 2.43c-2.134 0-3.72-.8-4.758-2.41-1.038-1.62-1.556-4.07-1.556-7.38q0-4.95 1.562-7.38t4.752-2.43q3.202 0 4.765 2.43t1.562 7.38">
+</path>
+<path id="Vector_156" fill="#fff" d="M87.979 1705.61c2.15 0 3.653-.52 4.505-1.58s1.278-2.97 1.278-5.74c0-2.79-.424-4.72-1.272-5.78-.848-1.05-2.352-1.58-4.511-1.58h-1.215v14.68zm.05-16.78c2.886 0 5.011.76 6.378 2.3 1.367 1.53 2.05 3.92 2.05 7.16 0 3.22-.683 5.6-2.05 7.13s-3.492 2.29-6.378 2.29h-3.834v-18.88z">
+</path>
+<path id="Vector_157" fill="#999" d="M161.237 1689.47v2.59c-.776-.49-1.555-.87-2.335-1.12a7.7 7.7 0 0 0-2.36-.38q-1.81 0-2.86.84c-.7.56-1.05 1.32-1.05 2.27 0 .84.23 1.47.689 1.91.46.44 1.318.81 2.576 1.1l1.341.31c1.772.41 3.062 1.06 3.872 1.94.81.89 1.215 2.1 1.215 3.62q0 2.7-1.67 4.11c-1.114.95-2.734 1.42-4.86 1.42-.886 0-1.776-.09-2.67-.28s-1.793-.48-2.695-.86v-2.72c.97.62 1.887 1.07 2.752 1.36.865.28 1.736.43 2.613.43q1.936 0 3.012-.87c.717-.58 1.076-1.39 1.076-2.42 0-.95-.247-1.67-.741-2.17-.493-.49-1.352-.88-2.575-1.15l-1.366-.31q-2.633-.6-3.822-1.8c-.793-.8-1.19-1.88-1.19-3.23q0-2.52 1.702-4.05 1.703-1.53 4.524-1.53c.726 0 1.489.09 2.291.25.801.17 1.645.41 2.531.74">
+</path>
+<path id="Vector_158" fill="#999" d="M165.517 1688.83h14.414v2.15h-5.91v16.73h-2.569v-16.73h-5.935z">
+</path>
+<path id="Vector_159" fill="#999" d="m189.21 1691.08-2.695 9.66h5.39zm-1.544-2.25h3.101l5.783 18.88h-2.645l-1.392-4.92h-6.618l-1.367 4.92h-2.645z">
+</path>
+<path id="Vector_160" fill="#999" d="M211.878 1706.16a7 7 0 0 1-2.31 1.43c-.856.33-1.782.49-2.777.49-2.396 0-4.261-.86-5.594-2.57-1.333-1.72-1.999-4.13-1.999-7.22s.675-5.49 2.025-7.22c1.349-1.72 3.226-2.59 5.631-2.59.793 0 1.552.12 2.278.34q1.088.33 2.1 1.02v2.62q-1.024-.975-2.1-1.44a5.7 5.7 0 0 0-2.278-.46c-1.662 0-2.909.64-3.74 1.93-.831 1.28-1.246 3.22-1.246 5.8 0 2.62.403 4.56 1.208 5.83q1.209 1.89 3.715 1.89c.565 0 1.06-.07 1.486-.2.427-.13.812-.33 1.158-.61v-5.08h-2.746v-2.1h5.189z">
+</path>
+<path id="Vector_161" fill="#999" d="M216.943 1688.83h10.49v2.15h-3.96v14.58h3.96v2.15h-10.49v-2.15h3.961v-14.58h-3.961z">
+</path>
+<path id="Vector_162" fill="#999" d="M231.132 1688.89h3.493l7.39 15.5v-15.5h2.721v18.82h-3.493l-7.39-15.49v15.49h-2.721z">
+</path>
+<path id="Vector_163" fill="#999" d="M261.354 1706.16a7 7 0 0 1-2.309 1.43c-.856.33-1.782.49-2.778.49-2.396 0-4.26-.86-5.593-2.57-1.333-1.72-1.999-4.13-1.999-7.22s.675-5.49 2.024-7.22c1.35-1.72 3.227-2.59 5.632-2.59a7.676 7.676 0 0 1 4.378 1.36v2.62q-1.024-.975-2.101-1.44a5.7 5.7 0 0 0-2.277-.46c-1.662 0-2.909.64-3.74 1.93-.831 1.28-1.246 3.22-1.246 5.8 0 2.62.403 4.56 1.208 5.83q1.209 1.89 3.714 1.89c.566 0 1.061-.07 1.487-.2a3.4 3.4 0 0 0 1.158-.61v-5.08h-2.746v-2.1h5.188z">
+</path>
+<path id="Vector_164" fill="#999" d="M318.402 1690.93v7.09h2.961q1.772 0 2.765-.93c.663-.63.994-1.5.994-2.62q0-1.68-.987-2.61t-2.772-.93zm-2.556-2.1h5.517c2.109 0 3.708.47 4.796 1.43s1.633 2.36 1.633 4.21c0 1.86-.542 3.27-1.626 4.22-1.084.96-2.685 1.43-4.803 1.43h-2.961v7.59h-2.556z">
+</path>
+<path id="Vector_165" fill="#999" d="M339.463 1698.8c.658.16 1.219.48 1.683.95s1.042 1.4 1.733 2.8l2.569 5.16h-2.746l-2.252-4.76c-.65-1.36-1.234-2.24-1.753-2.63s-1.196-.59-2.031-.59h-2.442v7.98h-2.569v-18.88h5.264c2.075 0 3.666.46 4.771 1.4s1.658 2.29 1.658 4.06q0 1.875-1.019 3.06c-.679.79-1.635 1.27-2.866 1.45m-5.239-7.87v6.7h2.796c1.224 0 2.135-.27 2.734-.82q.898-.825.898-2.52c0-1.09-.318-1.92-.955-2.5-.637-.57-1.563-.86-2.778-.86z">
+</path>
+<path id="Vector_166" fill="#999" d="M348.83 1688.83h11.212v2.15h-8.655v5.08h8.276v2.15h-8.276v7.35h8.896v2.15H348.83z">
+</path>
+<path id="Vector_167" fill="#999" d="m370.625 1705.56 4.442-16.73h2.644l-5.53 18.88h-3.1l-5.53-18.88h2.645z">
+</path>
+<path id="Vector_168" fill="#999" d="M381.865 1688.83h10.491v2.15h-3.961v14.58h3.961v2.15h-10.491v-2.15h3.961v-14.58h-3.961z">
+</path>
+<path id="Vector_169" fill="#999" d="M398.307 1688.83h11.212v2.15h-8.656v5.08h8.276v2.15h-8.276v7.35h8.896v2.15h-11.452z">
+</path>
+<path id="Vector_170" fill="#999" d="M412.307 1688.83h2.492l1.81 15.33 2.151-10.15h2.67l2.177 10.18 1.81-15.36h2.493l-2.822 18.88h-2.417l-2.569-11.22-2.557 11.22h-2.417z">
+</path>
+<path id="Vector_171" fill="#999" d="M483.793 1705.61c2.151 0 3.653-.52 4.505-1.58s1.278-2.97 1.278-5.74c0-2.79-.424-4.72-1.272-5.78-.848-1.05-2.351-1.58-4.511-1.58h-1.215v14.68zm.051-16.78c2.885 0 5.011.76 6.377 2.3 1.367 1.53 2.05 3.92 2.05 7.16 0 3.22-.683 5.6-2.05 7.13s-3.492 2.29-6.377 2.29h-3.835v-18.88z">
+</path>
+<path id="Vector_172" fill="#999" d="M497.261 1688.83h11.212v2.15h-8.656v5.08h8.276v2.15h-8.276v7.35h8.896v2.15h-11.452z">
+</path>
+<path id="Vector_173" fill="#999" d="m519.055 1705.56 4.442-16.73h2.645l-5.53 18.88h-3.101l-5.53-18.88h2.645z">
+</path>
+<path id="Vector_174" fill="#999" d="M702.065 1687.92v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_175" fill="#656565" d="m712.875 1688.83 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_176" fill="#656565" d="m729.367 1688.83 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_177" fill="#656565" d="m745.859 1688.83 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<g id="envs">
+<path id="Vector_178" fill="#fff" d="M9.111 1662.19v5.61h5.631v2.13h-5.63v5.61H6.984v-5.61H1.367v-2.13h5.618v-5.61z">
+</path>
+<path id="Vector_179" fill="#fff" d="M9.39 1687.92v25.91H7.213v-25.91z">
+</path>
+<path id="Vector_180" fill="#fff" d="M9.111 1723.43v5.61h5.631v2.14h-5.63v5.6H6.984v-5.6H1.367v-2.14h5.618v-5.61z">
+</path>
+<path id="Vector_181" fill="#fff" d="M17.783 1729.18h13.414v2.13H17.783z">
+</path>
+<path id="Vector_182" fill="#fff" d="M34.275 1729.18H47.69v2.13H34.275z">
+</path>
+<path id="Vector_183" fill="#fff" d="M50.768 1729.18H64.18v2.13H50.768z">
+</path>
+<path id="Vector_184" fill="#fff" d="M67.26 1729.18h13.414v2.13H67.26z">
+</path>
+<path id="Vector_185" fill="#fff" d="M83.752 1729.18h13.414v2.13H83.752z">
+</path>
+<path id="Vector_186" fill="#fff" d="M100.244 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_187" fill="#fff" d="M124.557 1723.43v5.61h5.631v2.14h-5.631v5.6h-2.126v-5.6h-5.619v-2.14h5.619v-5.61z">
+</path>
+<path id="Vector_188" fill="#999" d="M133.229 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_189" fill="#999" d="M149.721 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_190" fill="#999" d="M166.213 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_191" fill="#999" d="M182.706 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_192" fill="#999" d="M199.198 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_193" fill="#999" d="M215.69 1729.18h13.414v2.13H215.69z">
+</path>
+<path id="Vector_194" fill="#999" d="M232.182 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_195" fill="#999" d="M248.675 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_196" fill="#999" d="M265.167 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_197" fill="#999" d="M281.659 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_198" fill="#999" d="M298.151 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_199" fill="#999" d="M314.644 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_200" fill="#999" d="M331.136 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_201" fill="#999" d="M347.628 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_202" fill="#999" d="M364.12 1729.18h13.414v2.13H364.12z">
+</path>
+<path id="Vector_203" fill="#999" d="M380.613 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_204" fill="#999" d="M397.105 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_205" fill="#999" d="M413.597 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_206" fill="#999" d="M430.089 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_207" fill="#999" d="M446.582 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_208" fill="#999" d="M463.074 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_209" fill="#999" d="M479.566 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_210" fill="#999" d="M496.059 1729.18h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_211" fill="#999" d="M512.551 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_212" fill="#999" d="M529.043 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_213" fill="#999" d="M545.535 1729.18h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_214" fill="#fff" d="M124.836 1687.92v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_215" fill="#999" d="M289.758 1687.92v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_216" fill="#999" d="M454.681 1687.92v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_217" fill="#999" d="M553.634 1687.92v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_218" fill="#fff" d="M17.783 1667.93h13.414v2.14H17.783z">
+</path>
+<path id="Vector_219" fill="#fff" d="M34.275 1667.93H47.69v2.14H34.275z">
+</path>
+<path id="Vector_220" fill="#fff" d="M50.768 1667.93H64.18v2.14H50.768z">
+</path>
+<path id="Vector_221" fill="#fff" d="M67.26 1667.93h13.414v2.14H67.26z">
+</path>
+<path id="Vector_222" fill="#fff" d="M83.752 1667.93h13.414v2.14H83.752z">
+</path>
+<path id="Vector_223" fill="#fff" d="M100.244 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_224" fill="#fff" d="M124.557 1662.19v5.61h5.631v2.13h-5.631v5.61h-2.126v-5.61h-5.619v-2.13h5.619v-5.61z">
+</path>
+<path id="Vector_225" fill="#999" d="M133.229 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_226" fill="#999" d="M149.721 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_227" fill="#999" d="M166.213 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_228" fill="#999" d="M182.706 1667.93h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_229" fill="#999" d="M199.198 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_230" fill="#999" d="M215.69 1667.93h13.414v2.14H215.69z">
+</path>
+<path id="Vector_231" fill="#999" d="M232.182 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_232" fill="#999" d="M248.675 1667.93h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_233" fill="#999" d="M265.167 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_234" fill="#999" d="M281.659 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_235" fill="#999" d="M298.151 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_236" fill="#999" d="M314.644 1667.93h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_237" fill="#999" d="M331.136 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_238" fill="#999" d="M347.628 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_239" fill="#999" d="M364.12 1667.93h13.414v2.14H364.12z">
+</path>
+<path id="Vector_240" fill="#999" d="M380.613 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_241" fill="#999" d="M397.105 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_242" fill="#999" d="M413.597 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_243" fill="#999" d="M430.089 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_244" fill="#999" d="M446.582 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_245" fill="#999" d="M463.074 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_246" fill="#999" d="M479.566 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_247" fill="#999" d="M496.059 1667.93h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_248" fill="#999" d="M512.551 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_249" fill="#999" d="M529.043 1667.93h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_250" fill="#999" d="M553.356 1662.19v5.61h5.631v2.13h-5.631v5.61h-2.126v-5.61h-5.619v-2.13h5.619v-5.61z">
+</path>
+</g>
+<path id="Vector_251" fill="#999" d="M702.065 1657.29v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_252" fill="#656565" d="m712.875 1658.21 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_253" fill="#656565" d="m729.367 1658.21 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_254" fill="#656565" d="m745.859 1658.21 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_255" fill="#999" d="M17.783 259.364h13.414v2.138H17.783z">
+</path>
+<path id="Vector_256" fill="#999" d="M34.275 259.364H47.69v2.138H34.275z">
+</path>
+<path id="Vector_257" fill="#999" d="M50.768 259.364H64.18v2.138H50.768z">
+</path>
+<path id="Vector_258" fill="#999" d="M67.26 259.364h13.414v2.138H67.26z">
+</path>
+<path id="Vector_259" fill="#999" d="M83.752 259.364h13.414v2.138H83.752z">
+</path>
+<path id="Vector_260" fill="#999" d="M100.244 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_261" fill="#999" d="M116.737 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_262" fill="#999" d="M133.229 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_263" fill="#999" d="M149.721 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_264" fill="#999" d="M166.213 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_265" fill="#999" d="M182.706 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_266" fill="#999" d="M199.198 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_267" fill="#999" d="M215.69 259.364h13.414v2.138H215.69z">
+</path>
+<path id="Vector_268" fill="#999" d="M232.182 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_269" fill="#999" d="M248.675 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_270" fill="#999" d="M265.167 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_271" fill="#999" d="M281.659 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_272" fill="#999" d="M298.151 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_273" fill="#999" d="M314.644 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_274" fill="#999" d="M331.136 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_275" fill="#999" d="M347.628 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_276" fill="#999" d="M364.12 259.364h13.414v2.138H364.12z">
+</path>
+<path id="Vector_277" fill="#999" d="M380.613 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_278" fill="#999" d="M397.105 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_279" fill="#999" d="M413.597 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_280" fill="#999" d="M430.089 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_281" fill="#999" d="M446.582 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_282" fill="#999" d="M463.074 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_283" fill="#999" d="M479.566 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_284" fill="#999" d="M496.059 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_285" fill="#999" d="M512.551 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_286" fill="#999" d="M529.043 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_287" fill="#999" d="M545.535 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_288" fill="#999" d="M562.028 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_289" fill="#999" d="M578.52 259.364h13.414v2.138H578.52z">
+</path>
+<path id="Vector_290" fill="#999" d="M595.012 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_291" fill="#999" d="M611.504 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_292" fill="#999" d="M627.997 259.364h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_293" fill="#999" d="M644.489 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_294" fill="#999" d="M660.981 259.364h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_295" fill="#999" d="M17.783 504.333h13.414v2.138H17.783z">
+</path>
+<path id="Vector_296" fill="#999" d="M34.275 504.333H47.69v2.138H34.275z">
+</path>
+<path id="Vector_297" fill="#999" d="M50.768 504.333H64.18v2.138H50.768z">
+</path>
+<path id="Vector_298" fill="#999" d="M67.26 504.333h13.414v2.138H67.26z">
+</path>
+<path id="Vector_299" fill="#999" d="M83.752 504.333h13.414v2.138H83.752z">
+</path>
+<path id="Vector_300" fill="#999" d="M100.244 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_301" fill="#999" d="M116.737 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_302" fill="#999" d="M133.229 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_303" fill="#999" d="M149.721 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_304" fill="#999" d="M166.213 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_305" fill="#999" d="M182.706 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_306" fill="#999" d="M199.198 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_307" fill="#999" d="M215.69 504.333h13.414v2.138H215.69z">
+</path>
+<path id="Vector_308" fill="#999" d="M232.182 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_309" fill="#999" d="M248.675 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_310" fill="#999" d="M265.167 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_311" fill="#999" d="M281.659 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_312" fill="#999" d="M298.151 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_313" fill="#999" d="M314.644 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_314" fill="#999" d="M331.136 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_315" fill="#999" d="M347.628 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_316" fill="#999" d="M364.12 504.333h13.414v2.138H364.12z">
+</path>
+<path id="Vector_317" fill="#999" d="M380.613 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_318" fill="#999" d="M397.105 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_319" fill="#999" d="M413.597 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_320" fill="#999" d="M430.089 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_321" fill="#999" d="M446.582 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_322" fill="#999" d="M463.074 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_323" fill="#999" d="M479.566 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_324" fill="#999" d="M496.059 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_325" fill="#999" d="M512.551 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_326" fill="#999" d="M529.043 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_327" fill="#999" d="M545.535 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_328" fill="#999" d="M562.028 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_329" fill="#999" d="M578.52 504.333h13.414v2.138H578.52z">
+</path>
+<path id="Vector_330" fill="#999" d="M595.012 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_331" fill="#999" d="M611.504 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_332" fill="#999" d="M627.997 504.333h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_333" fill="#999" d="M644.489 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_334" fill="#999" d="M660.981 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_335" fill="#999" d="M677.473 504.333h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_336" fill="#999" d="M17.783 749.301h13.414v2.138H17.783z">
+</path>
+<path id="Vector_337" fill="#999" d="M34.275 749.301H47.69v2.138H34.275z">
+</path>
+<path id="Vector_338" fill="#999" d="M50.768 749.301H64.18v2.138H50.768z">
+</path>
+<path id="Vector_339" fill="#999" d="M67.26 749.301h13.414v2.138H67.26z">
+</path>
+<path id="Vector_340" fill="#999" d="M83.752 749.301h13.414v2.138H83.752z">
+</path>
+<path id="Vector_341" fill="#999" d="M100.244 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_342" fill="#999" d="M116.737 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_343" fill="#999" d="M133.229 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_344" fill="#999" d="M149.721 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_345" fill="#999" d="M166.213 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_346" fill="#999" d="M182.706 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_347" fill="#999" d="M199.198 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_348" fill="#999" d="M215.69 749.301h13.414v2.138H215.69z">
+</path>
+<path id="Vector_349" fill="#999" d="M232.182 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_350" fill="#999" d="M248.675 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_351" fill="#999" d="M265.167 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_352" fill="#999" d="M281.659 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_353" fill="#999" d="M298.151 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_354" fill="#999" d="M314.644 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_355" fill="#999" d="M331.136 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_356" fill="#999" d="M347.628 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_357" fill="#999" d="M364.12 749.301h13.414v2.138H364.12z">
+</path>
+<path id="Vector_358" fill="#999" d="M380.613 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_359" fill="#999" d="M397.105 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_360" fill="#999" d="M413.597 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_361" fill="#999" d="M430.089 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_362" fill="#999" d="M446.582 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_363" fill="#999" d="M463.074 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_364" fill="#999" d="M479.566 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_365" fill="#999" d="M496.059 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_366" fill="#999" d="M512.551 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_367" fill="#999" d="M529.043 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_368" fill="#999" d="M545.535 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_369" fill="#999" d="M562.028 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_370" fill="#999" d="M578.52 749.301h13.414v2.138H578.52z">
+</path>
+<path id="Vector_371" fill="#999" d="M595.012 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_372" fill="#999" d="M611.504 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_373" fill="#999" d="M627.997 749.301h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_374" fill="#999" d="M644.489 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_375" fill="#999" d="M660.981 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_376" fill="#999" d="M677.473 749.301h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_377" fill="#999" d="M17.783 1116.75h13.414v2.14H17.783z">
+</path>
+<path id="Vector_378" fill="#999" d="M34.275 1116.75H47.69v2.14H34.275z">
+</path>
+<path id="Vector_379" fill="#999" d="M50.768 1116.75H64.18v2.14H50.768z">
+</path>
+<path id="Vector_380" fill="#999" d="M67.26 1116.75h13.414v2.14H67.26z">
+</path>
+<path id="Vector_381" fill="#999" d="M83.752 1116.75h13.414v2.14H83.752z">
+</path>
+<path id="Vector_382" fill="#999" d="M100.244 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_383" fill="#999" d="M116.737 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_384" fill="#999" d="M133.229 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_385" fill="#999" d="M149.721 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_386" fill="#999" d="M166.213 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_387" fill="#999" d="M182.706 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_388" fill="#999" d="M199.198 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_389" fill="#999" d="M215.69 1116.75h13.414v2.14H215.69z">
+</path>
+<path id="Vector_390" fill="#999" d="M232.182 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_391" fill="#999" d="M248.675 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_392" fill="#999" d="M265.167 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_393" fill="#999" d="M281.659 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_394" fill="#999" d="M298.151 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_395" fill="#999" d="M314.644 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_396" fill="#999" d="M331.136 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_397" fill="#999" d="M347.628 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_398" fill="#999" d="M364.12 1116.75h13.414v2.14H364.12z">
+</path>
+<path id="Vector_399" fill="#999" d="M380.613 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_400" fill="#999" d="M397.105 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_401" fill="#999" d="M413.597 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_402" fill="#999" d="M430.089 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_403" fill="#999" d="M446.582 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_404" fill="#999" d="M463.074 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_405" fill="#999" d="M479.566 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_406" fill="#999" d="M496.059 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_407" fill="#999" d="M512.551 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_408" fill="#999" d="M529.043 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_409" fill="#999" d="M545.535 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_410" fill="#999" d="M562.028 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_411" fill="#999" d="M578.52 1116.75h13.414v2.14H578.52z">
+</path>
+<path id="Vector_412" fill="#999" d="M595.012 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_413" fill="#999" d="M611.504 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_414" fill="#999" d="M627.997 1116.75h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_415" fill="#999" d="M644.489 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_416" fill="#999" d="M660.981 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_417" fill="#999" d="M677.473 1116.75h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_418" fill="#999" d="M17.783 1361.72h13.414v2.14H17.783z">
+</path>
+<path id="Vector_419" fill="#999" d="M34.275 1361.72H47.69v2.14H34.275z">
+</path>
+<path id="Vector_420" fill="#999" d="M50.768 1361.72H64.18v2.14H50.768z">
+</path>
+<path id="Vector_421" fill="#999" d="M67.26 1361.72h13.414v2.14H67.26z">
+</path>
+<path id="Vector_422" fill="#999" d="M83.752 1361.72h13.414v2.14H83.752z">
+</path>
+<path id="Vector_423" fill="#999" d="M100.244 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_424" fill="#999" d="M116.737 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_425" fill="#999" d="M133.229 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_426" fill="#999" d="M149.721 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_427" fill="#999" d="M166.213 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_428" fill="#999" d="M182.706 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_429" fill="#999" d="M199.198 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_430" fill="#999" d="M215.69 1361.72h13.414v2.14H215.69z">
+</path>
+<path id="Vector_431" fill="#999" d="M232.182 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_432" fill="#999" d="M248.675 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_433" fill="#999" d="M265.167 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_434" fill="#999" d="M281.659 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_435" fill="#999" d="M298.151 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_436" fill="#999" d="M314.644 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_437" fill="#999" d="M331.136 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_438" fill="#999" d="M347.628 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_439" fill="#999" d="M364.12 1361.72h13.414v2.14H364.12z">
+</path>
+<path id="Vector_440" fill="#999" d="M380.613 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_441" fill="#999" d="M397.105 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_442" fill="#999" d="M413.597 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_443" fill="#999" d="M430.089 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_444" fill="#999" d="M446.582 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_445" fill="#999" d="M463.074 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_446" fill="#999" d="M479.566 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_447" fill="#999" d="M496.059 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_448" fill="#999" d="M512.551 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_449" fill="#999" d="M529.043 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_450" fill="#999" d="M545.535 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_451" fill="#999" d="M562.028 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_452" fill="#999" d="M578.52 1361.72h13.414v2.14H578.52z">
+</path>
+<path id="Vector_453" fill="#999" d="M595.012 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_454" fill="#999" d="M611.504 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_455" fill="#999" d="M627.997 1361.72h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_456" fill="#999" d="M644.489 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_457" fill="#999" d="M660.981 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_458" fill="#999" d="M677.473 1361.72h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_459" fill="#999" d="M17.783 1606.69h13.414v2.14H17.783z">
+</path>
+<path id="Vector_460" fill="#999" d="M34.275 1606.69H47.69v2.14H34.275z">
+</path>
+<path id="Vector_461" fill="#999" d="M50.768 1606.69H64.18v2.14H50.768z">
+</path>
+<path id="Vector_462" fill="#999" d="M67.26 1606.69h13.414v2.14H67.26z">
+</path>
+<path id="Vector_463" fill="#999" d="M83.752 1606.69h13.414v2.14H83.752z">
+</path>
+<path id="Vector_464" fill="#999" d="M100.244 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_465" fill="#999" d="M116.737 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_466" fill="#999" d="M133.229 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_467" fill="#999" d="M149.721 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_468" fill="#999" d="M166.213 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_469" fill="#999" d="M182.706 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_470" fill="#999" d="M199.198 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_471" fill="#999" d="M215.69 1606.69h13.414v2.14H215.69z">
+</path>
+<path id="Vector_472" fill="#999" d="M232.182 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_473" fill="#999" d="M248.675 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_474" fill="#999" d="M265.167 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_475" fill="#999" d="M281.659 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_476" fill="#999" d="M298.151 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_477" fill="#999" d="M314.644 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_478" fill="#999" d="M331.136 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_479" fill="#999" d="M347.628 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_480" fill="#999" d="M364.12 1606.69h13.414v2.14H364.12z">
+</path>
+<path id="Vector_481" fill="#999" d="M380.613 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_482" fill="#999" d="M397.105 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_483" fill="#999" d="M413.597 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_484" fill="#999" d="M430.089 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_485" fill="#999" d="M446.582 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_486" fill="#999" d="M463.074 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_487" fill="#999" d="M479.566 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_488" fill="#999" d="M496.059 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_489" fill="#999" d="M512.551 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_490" fill="#999" d="M529.043 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_491" fill="#999" d="M545.535 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_492" fill="#999" d="M562.028 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_493" fill="#999" d="M578.52 1606.69h13.414v2.14H578.52z">
+</path>
+<path id="Vector_494" fill="#999" d="M595.012 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_495" fill="#999" d="M611.504 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_496" fill="#999" d="M627.997 1606.69h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_497" fill="#999" d="M644.489 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_498" fill="#999" d="M660.981 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_499" fill="#999" d="M677.473 1606.69h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_500" fill="#999" d="M702.065 1626.67v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_501" fill="#656565" d="m712.875 1627.58 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_502" fill="#656565" d="m729.367 1627.58 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_503" fill="#656565" d="m745.859 1627.58 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_504" fill="#999" d="M702.065 1596.05v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_505" fill="#656565" d="m712.875 1596.96 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_506" fill="#656565" d="m729.367 1596.96 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_507" fill="#656565" d="m745.859 1596.96 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_508" fill="#999" d="M702.065 1565.43v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_509" fill="#656565" d="m712.875 1566.34 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_510" fill="#656565" d="m729.367 1566.34 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_511" fill="#656565" d="m745.859 1566.34 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_512" fill="#999" d="M702.065 1534.81v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_513" fill="#656565" d="m712.875 1535.72 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_514" fill="#656565" d="m729.367 1535.72 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_515" fill="#656565" d="m745.859 1535.72 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_516" fill="#fff" d="M303.985 1472.42h5.366v1.81h-3.037v19.48h3.037v1.81h-5.366z">
+</path>
+<path id="Vector_517" fill="#999" d="M702.065 1504.19v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_518" fill="#656565" d="m712.875 1505.1 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_519" fill="#656565" d="m729.367 1505.1 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_520" fill="#656565" d="m745.859 1505.1 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_521" fill="#fff" d="M326.931 1492.7c-.649.34-1.316.6-1.999.77-.684.18-1.409.26-2.177.26-2.421 0-4.3-.85-5.637-2.56-1.337-1.72-2.006-4.12-2.006-7.23 0-3.09.673-5.49 2.018-7.22q2.019-2.58 5.625-2.58c.768 0 1.493.08 2.177.26.683.17 1.35.43 1.999.77v2.62a7.2 7.2 0 0 0-2.012-1.17 6.1 6.1 0 0 0-2.164-.41q-2.493 0-3.733 1.92c-.827 1.29-1.24 3.22-1.24 5.81 0 2.58.413 4.51 1.24 5.8q1.24 1.92 3.733 1.92c.743 0 1.47-.14 2.183-.41a7 7 0 0 0 1.993-1.17z">
+</path>
+<path id="Vector_522" fill="#fff" d="m337.64 1476.73-2.695 9.67h5.391zm-1.543-2.25h3.1l5.783 18.89h-2.645l-1.392-4.92h-6.618l-1.367 4.92h-2.645z">
+</path>
+<path id="Vector_523" fill="#fff" d="M359.916 1492.7c-.65.34-1.316.6-2 .77-.683.18-1.409.26-2.176.26-2.421 0-4.301-.85-5.638-2.56-1.337-1.72-2.006-4.12-2.006-7.23 0-3.09.673-5.49 2.019-7.22q2.018-2.58 5.625-2.58c.767 0 1.493.08 2.176.26.684.17 1.35.43 2 .77v2.62a7.2 7.2 0 0 0-2.012-1.17 6.1 6.1 0 0 0-2.164-.41q-2.493 0-3.733 1.92c-.827 1.29-1.24 3.22-1.24 5.81 0 2.58.413 4.51 1.24 5.8q1.24 1.92 3.733 1.92c.742 0 1.47-.14 2.183-.41a7 7 0 0 0 1.993-1.17z">
+</path>
+<path id="Vector_524" fill="#fff" d="M364.563 1474.48h2.569v7.24h6.998v-7.24h2.569v18.89h-2.569v-9.5h-6.998v9.5h-2.569z">
+</path>
+<path id="Vector_525" fill="#fff" d="M381.815 1474.48h11.212v2.15h-8.656v5.09h8.276v2.15h-8.276v7.35h8.896v2.15h-11.452z">
+</path>
+<path id="Vector_526" fill="#fff" d="M404.925 1472.42v23.1h-5.365v-1.81h3.037v-19.48h-3.037v-1.81z">
+</path>
+<path id="Vector_527" fill="#999" d="M702.065 1473.57v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_528" fill="#656565" d="m712.875 1474.48 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_529" fill="#656565" d="m729.367 1474.48 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_530" fill="#656565" d="m745.859 1474.48 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_531" fill="#999" d="M702.065 1442.95v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_532" fill="#656565" d="m712.875 1443.86 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_533" fill="#656565" d="m729.367 1443.86 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_534" fill="#656565" d="m745.859 1443.86 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<g id="cache" fill="#fff">
+<path id="Vector_535" d="M42.096 1417.22v5.61h5.631v2.13h-5.631v5.61H39.97v-5.61H34.35v-2.13h5.619v-5.61z">
+</path>
+<path id="Vector_536" d="M42.374 1442.95v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_537" d="M42.374 1473.57v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_538" d="M42.374 1504.19v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_539" d="M42.096 1539.71v5.6h5.631v2.14h-5.631v5.6H39.97v-5.6H34.35v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_540" d="M50.768 1545.45H64.18v2.14H50.768z">
+</path>
+<path id="Vector_541" d="M67.26 1545.45h13.414v2.14H67.26z">
+</path>
+<path id="Vector_542" d="M83.752 1545.45h13.414v2.14H83.752z">
+</path>
+<path id="Vector_543" d="M100.244 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_544" d="M116.737 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_545" d="M133.229 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_546" d="M149.721 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_547" d="M166.213 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_548" d="M182.706 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_549" d="M199.198 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_550" d="M215.69 1545.45h13.414v2.14H215.69z">
+</path>
+<path id="Vector_551" d="M232.182 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_552" d="M248.675 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_553" d="M265.167 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_554" d="M281.659 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_555" d="M298.151 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_556" d="M314.644 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_557" d="M331.136 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_558" d="M347.628 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_559" d="M364.12 1545.45h13.414v2.14H364.12z">
+</path>
+<path id="Vector_560" d="M380.613 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_561" d="M397.105 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_562" d="M413.597 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_563" d="M430.089 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_564" d="M446.582 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_565" d="M463.074 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_566" d="M479.566 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_567" d="M496.059 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_568" d="M512.551 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_569" d="M529.043 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_570" d="M545.535 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_571" d="M562.028 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_572" d="M578.52 1545.45h13.414v2.14H578.52z">
+</path>
+<path id="Vector_573" d="M595.012 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_574" d="M611.504 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_575" d="M627.997 1545.45h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_576" d="M644.489 1545.45h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_577" d="M668.802 1539.71v5.6h5.631v2.14h-5.631v5.6h-2.126v-5.6h-5.619v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_578" d="M669.08 1504.19v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_579" d="M669.08 1473.57v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_580" d="M669.08 1442.95v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_581" d="M50.768 1422.97H64.18v2.13H50.768z">
+</path>
+<path id="Vector_582" d="M67.26 1422.97h13.414v2.13H67.26z">
+</path>
+<path id="Vector_583" d="M83.752 1422.97h13.414v2.13H83.752z">
+</path>
+<path id="Vector_584" d="M100.244 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_585" d="M116.737 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_586" d="M133.229 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_587" d="M149.721 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_588" d="M166.213 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_589" d="M182.706 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_590" d="M199.198 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_591" d="M215.69 1422.97h13.414v2.13H215.69z">
+</path>
+<path id="Vector_592" d="M232.182 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_593" d="M248.675 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_594" d="M265.167 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_595" d="M281.659 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_596" d="M298.151 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_597" d="M314.644 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_598" d="M331.136 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_599" d="M347.628 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_600" d="M364.12 1422.97h13.414v2.13H364.12z">
+</path>
+<path id="Vector_601" d="M380.613 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_602" d="M397.105 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_603" d="M413.597 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_604" d="M430.089 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_605" d="M446.582 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_606" d="M463.074 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_607" d="M479.566 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_608" d="M496.059 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_609" d="M512.551 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_610" d="M529.043 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_611" d="M545.535 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_612" d="M562.028 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_613" d="M578.52 1422.97h13.414v2.13H578.52z">
+</path>
+<path id="Vector_614" d="M595.012 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_615" d="M611.504 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_616" d="M627.997 1422.97h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_617" d="M644.489 1422.97h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_618" d="M668.802 1417.22v5.61h5.631v2.13h-5.631v5.61h-2.126v-5.61h-5.619v-2.13h5.619v-5.61z">
+</path>
+</g>
+<path id="Vector_619" fill="#999" d="M702.065 1412.33v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_620" fill="#656565" d="m712.875 1413.24 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_621" fill="#656565" d="m729.367 1413.24 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_622" fill="#656565" d="m745.859 1413.24 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_623" fill="#999" d="M702.065 1381.7v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_624" fill="#656565" d="m712.875 1382.62 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_625" fill="#656565" d="m729.367 1382.62 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_626" fill="#656565" d="m745.859 1382.62 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_627" fill="#999" d="M702.065 1351.08v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_628" fill="#656565" d="m712.875 1351.99 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_629" fill="#656565" d="m729.367 1351.99 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_630" fill="#656565" d="m745.859 1351.99 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_631" fill="#999" d="M702.065 1320.46v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_632" fill="#656565" d="m712.875 1321.37 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_633" fill="#656565" d="m729.367 1321.37 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_634" fill="#656565" d="m745.859 1321.37 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_635" fill="#999" d="M702.065 1289.84v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_636" fill="#656565" d="m712.875 1290.75 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_637" fill="#656565" d="m729.367 1290.75 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_638" fill="#656565" d="m745.859 1290.75 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_639" fill="#fff" d="M287.493 1227.45h5.365v1.81h-3.037v19.48h3.037v1.81h-5.365z">
+</path>
+<path id="Vector_640" fill="#999" d="M702.065 1259.22v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_641" fill="#656565" d="m712.875 1260.13 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_642" fill="#656565" d="m729.367 1260.13 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_643" fill="#656565" d="m745.859 1260.13 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_644" fill="#fff" d="M309.667 1230.15v2.6c-.776-.5-1.554-.87-2.335-1.13a7.7 7.7 0 0 0-2.36-.38q-1.81 0-2.86.84c-.7.57-1.05 1.32-1.05 2.28 0 .83.23 1.47.69 1.91.459.43 1.318.8 2.575 1.1l1.341.3q2.658.615 3.872 1.95c.81.88 1.215 2.09 1.215 3.62q0 2.685-1.67 4.11c-1.114.94-2.733 1.42-4.859 1.42-.886 0-1.776-.1-2.671-.29s-1.792-.47-2.695-.85v-2.72q1.455.915 2.752 1.35c.865.29 1.736.43 2.614.43q1.935 0 3.011-.87c.717-.57 1.076-1.38 1.076-2.42q0-1.41-.74-2.16c-.494-.5-1.352-.88-2.576-1.15l-1.366-.32q-2.632-.6-3.822-1.8c-.793-.8-1.189-1.87-1.189-3.22 0-1.69.567-3.04 1.702-4.06 1.134-1.01 2.642-1.52 4.524-1.52q1.088 0 2.29.24c.802.17 1.645.42 2.531.74">
+</path>
+<path id="Vector_645" fill="#fff" d="M313.948 1229.51h14.413v2.15h-5.909v16.74h-2.569v-16.74h-5.935z">
+</path>
+<path id="Vector_646" fill="#fff" d="M341.298 1238.97q0-4.155-.855-5.94c-.569-1.19-1.503-1.79-2.803-1.79-1.29 0-2.22.6-2.79 1.79q-.854 1.785-.854 5.94t.854 5.94c.57 1.19 1.5 1.78 2.79 1.78 1.3 0 2.234-.59 2.803-1.78q.855-1.77.855-5.94m2.67 0c0 3.29-.521 5.75-1.563 7.37q-1.563 2.43-4.765 2.43c-2.134 0-3.72-.81-4.758-2.42q-1.556-2.415-1.556-7.38c0-3.29.521-5.75 1.563-7.37q1.563-2.43 4.751-2.43 3.202 0 4.765 2.43c1.042 1.62 1.563 4.08 1.563 7.37">
+</path>
+<path id="Vector_647" fill="#fff" d="M355.955 1239.48c.658.17 1.219.49 1.683.95.464.47 1.042 1.41 1.734 2.81l2.568 5.16h-2.746l-2.252-4.77c-.65-1.36-1.234-2.23-1.753-2.63-.519-.39-1.196-.58-2.031-.58h-2.442v7.98h-2.569v-18.89h5.264c2.076 0 3.666.47 4.771 1.4 1.105.94 1.658 2.29 1.658 4.07 0 1.24-.34 2.26-1.019 3.05s-1.634 1.27-2.866 1.45m-5.239-7.87v6.71h2.797c1.223 0 2.134-.28 2.733-.83s.898-1.38.898-2.51c0-1.09-.318-1.93-.955-2.5q-.956-.87-2.778-.87z">
+</path>
+<path id="Vector_648" fill="#fff" d="m370.625 1231.76-2.695 9.67h5.39zm-1.544-2.25h3.1l5.784 18.89h-2.645l-1.392-4.92h-6.619l-1.366 4.92h-2.645z">
+</path>
+<path id="Vector_649" fill="#fff" d="M393.293 1246.84a7.2 7.2 0 0 1-2.31 1.44c-.856.32-1.782.49-2.778.49q-3.593 0-5.593-2.58c-1.333-1.72-1.999-4.12-1.999-7.22 0-3.08.675-5.49 2.025-7.21 1.349-1.73 3.226-2.59 5.631-2.59q1.19 0 2.278.33 1.088.345 2.1 1.02v2.62q-1.024-.975-2.1-1.44a5.9 5.9 0 0 0-2.278-.46c-1.662 0-2.909.65-3.74 1.93-.831 1.29-1.246 3.22-1.246 5.8 0 2.63.403 4.57 1.208 5.83q1.209 1.89 3.714 1.89c.566 0 1.061-.07 1.487-.2a3.4 3.4 0 0 0 1.158-.61v-5.07h-2.746v-2.1h5.189z">
+</path>
+<path id="Vector_650" fill="#fff" d="M398.307 1229.51h11.212v2.15h-8.656v5.09h8.276v2.15h-8.276v7.35h8.896v2.15h-11.452z">
+</path>
+<path id="Vector_651" fill="#fff" d="M421.418 1227.45v23.1h-5.366v-1.81h3.037v-19.48h-3.037v-1.81z">
+</path>
+<path id="Vector_652" fill="#999" d="M702.065 1228.6v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_653" fill="#656565" d="m712.875 1229.51 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_654" fill="#656565" d="m729.367 1229.51 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_655" fill="#656565" d="m745.859 1229.51 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_656" fill="#999" d="M702.065 1197.98v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_657" fill="#656565" d="m712.875 1198.89 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_658" fill="#656565" d="m729.367 1198.89 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_659" fill="#656565" d="m745.859 1198.89 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<g id="storage" fill="#fff">
+<path id="Vector_660" d="M42.096 1172.25v5.61h5.631v2.14h-5.631v5.6H39.97v-5.6H34.35v-2.14h5.619v-5.61z">
+</path>
+<path id="Vector_661" d="M42.374 1197.98v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_662" d="M42.374 1228.6v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_663" d="M42.374 1259.22v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_664" d="M42.096 1294.74v5.6h5.631v2.14h-5.631v5.6H39.97v-5.6H34.35v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_665" d="M50.768 1300.48H64.18v2.14H50.768z">
+</path>
+<path id="Vector_666" d="M67.26 1300.48h13.414v2.14H67.26z">
+</path>
+<path id="Vector_667" d="M83.752 1300.48h13.414v2.14H83.752z">
+</path>
+<path id="Vector_668" d="M100.244 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_669" d="M116.737 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_670" d="M133.229 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_671" d="M149.721 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_672" d="M166.213 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_673" d="M182.706 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_674" d="M199.198 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_675" d="M215.69 1300.48h13.414v2.14H215.69z">
+</path>
+<path id="Vector_676" d="M232.182 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_677" d="M248.675 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_678" d="M265.167 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_679" d="M281.659 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_680" d="M298.151 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_681" d="M314.644 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_682" d="M331.136 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_683" d="M347.628 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_684" d="M364.12 1300.48h13.414v2.14H364.12z">
+</path>
+<path id="Vector_685" d="M380.613 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_686" d="M397.105 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_687" d="M413.597 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_688" d="M430.089 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_689" d="M446.582 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_690" d="M463.074 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_691" d="M479.566 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_692" d="M496.059 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_693" d="M512.551 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_694" d="M529.043 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_695" d="M545.535 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_696" d="M562.028 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_697" d="M578.52 1300.48h13.414v2.14H578.52z">
+</path>
+<path id="Vector_698" d="M595.012 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_699" d="M611.504 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_700" d="M627.997 1300.48h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_701" d="M644.489 1300.48h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_702" d="M668.802 1294.74v5.6h5.631v2.14h-5.631v5.6h-2.126v-5.6h-5.619v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_703" d="M669.08 1259.22v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_704" d="M669.08 1228.6v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_705" d="M669.08 1197.98v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_706" d="M50.768 1178H64.18v2.13H50.768z">
+</path>
+<path id="Vector_707" d="M67.26 1178h13.414v2.13H67.26z">
+</path>
+<path id="Vector_708" d="M83.752 1178h13.414v2.13H83.752z">
+</path>
+<path id="Vector_709" d="M100.244 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_710" d="M116.737 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_711" d="M133.229 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_712" d="M149.721 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_713" d="M166.213 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_714" d="M182.706 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_715" d="M199.198 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_716" d="M215.69 1178h13.414v2.13H215.69z">
+</path>
+<path id="Vector_717" d="M232.182 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_718" d="M248.675 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_719" d="M265.167 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_720" d="M281.659 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_721" d="M298.151 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_722" d="M314.644 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_723" d="M331.136 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_724" d="M347.628 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_725" d="M364.12 1178h13.414v2.13H364.12z">
+</path>
+<path id="Vector_726" d="M380.613 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_727" d="M397.105 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_728" d="M413.597 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_729" d="M430.089 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_730" d="M446.582 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_731" d="M463.074 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_732" d="M479.566 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_733" d="M496.059 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_734" d="M512.551 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_735" d="M529.043 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_736" d="M545.535 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_737" d="M562.028 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_738" d="M578.52 1178h13.414v2.13H578.52z">
+</path>
+<path id="Vector_739" d="M595.012 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_740" d="M611.504 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_741" d="M627.997 1178h13.413v2.13h-13.413z">
+</path>
+<path id="Vector_742" d="M644.489 1178h13.414v2.13h-13.414z">
+</path>
+<path id="Vector_743" d="M668.802 1172.25v5.61h5.631v2.14h-5.631v5.6h-2.126v-5.6h-5.619v-2.14h5.619v-5.61z">
+</path>
+</g>
+<path id="Vector_744" fill="#999" d="M702.065 1167.36v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_745" fill="#656565" d="m712.875 1168.27 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_746" fill="#656565" d="m729.367 1168.27 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_747" fill="#656565" d="m745.859 1168.27 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_748" fill="#999" d="M702.065 1136.74v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_749" fill="#656565" d="m712.875 1137.65 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_750" fill="#656565" d="m729.367 1137.65 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_751" fill="#656565" d="m745.859 1137.65 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_752" fill="#999" d="M702.065 1106.11v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_753" fill="#656565" d="m712.875 1107.03 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_754" fill="#656565" d="m729.367 1107.03 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_755" fill="#656565" d="m745.859 1107.03 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_756" fill="#999" d="M702.065 1075.49v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_757" fill="#656565" d="m712.875 1076.4 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_758" fill="#656565" d="m729.367 1076.4 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_759" fill="#656565" d="m745.859 1076.4 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_760" fill="#999" d="M702.065 1044.87v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_761" fill="#656565" d="m712.875 1045.78 9.946 21.3h-2.404l-9.959-21.3z">
+</path>
+<path id="Vector_762" fill="#656565" d="m729.367 1045.78 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_763" fill="#656565" d="m745.859 1045.78 9.947 21.3h-2.405l-9.959-21.3z">
+</path>
+<path id="Vector_764" fill="#fff" d="M303.985 1013.1h5.366v1.81h-3.037v19.48h3.037v1.81h-5.366z">
+</path>
+<path id="Vector_765" fill="#fff" d="M326.159 1015.81v2.59c-.776-.5-1.554-.87-2.334-1.13a7.7 7.7 0 0 0-2.361-.37q-1.809 0-2.859.84c-.701.56-1.051 1.31-1.051 2.27 0 .83.23 1.47.69 1.91s1.318.8 2.575 1.1l1.341.3c1.772.42 3.063 1.06 3.873 1.95s1.215 2.09 1.215 3.62q0 2.7-1.671 4.11c-1.113.95-2.733 1.42-4.859 1.42-.886 0-1.776-.1-2.67-.29s-1.793-.47-2.696-.85v-2.72c.971.61 1.888 1.07 2.753 1.35.864.29 1.736.43 2.613.43 1.291 0 2.295-.29 3.012-.86q1.075-.87 1.075-2.43 0-1.41-.74-2.16c-.494-.5-1.352-.88-2.575-1.15l-1.367-.32c-1.755-.39-3.029-.99-3.822-1.79-.793-.81-1.189-1.88-1.189-3.23 0-1.69.567-3.04 1.702-4.06 1.135-1.01 2.643-1.52 4.524-1.52.725 0 1.489.08 2.29.25.802.16 1.645.41 2.531.74">
+</path>
+<path id="Vector_766" fill="#fff" d="M330.313 1015.16h2.721l4.606 8.34 4.594-8.34h2.746l-6.061 10.41v8.48h-2.569v-8.48z">
+</path>
+<path id="Vector_767" fill="#fff" d="M346.578 1015.23h3.493l7.39 15.49v-15.49h2.72v18.82h-3.492l-7.39-15.5v15.5h-2.721z">
+</path>
+<path id="Vector_768" fill="#fff" d="M376.408 1033.38q-.975.525-1.999.78c-.684.17-1.409.26-2.177.26-2.421 0-4.3-.86-5.638-2.57-1.337-1.71-2.005-4.12-2.005-7.22 0-3.09.672-5.5 2.018-7.22 1.346-1.73 3.221-2.59 5.625-2.59.768 0 1.493.09 2.177.26q1.024.255 1.999.78v2.62a7 7 0 0 0-2.012-1.18 6.1 6.1 0 0 0-2.164-.4q-2.493 0-3.733 1.92c-.827 1.28-1.24 3.22-1.24 5.81q0 3.87 1.24 5.79t3.733 1.92c.742 0 1.47-.13 2.183-.4a6.8 6.8 0 0 0 1.993-1.18z">
+</path>
+<path id="Vector_769" fill="#fff" d="M388.433 1013.1v23.1h-5.365v-1.81h3.037v-19.48h-3.037v-1.81z">
+</path>
+<path id="Vector_770" fill="#999" d="M702.065 1014.25v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_771" fill="#656565" d="m712.875 1015.16 9.946 21.29h-2.404l-9.959-21.29z">
+</path>
+<path id="Vector_772" fill="#656565" d="m729.367 1015.16 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<path id="Vector_773" fill="#656565" d="m745.859 1015.16 9.947 21.29h-2.405l-9.959-21.29z">
+</path>
+<g id="sync" fill="#fff">
+<path id="Vector_774" d="M42.096 988.526v5.605h5.631v2.138h-5.631v5.601H39.97v-5.601H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_775" d="M42.374 1014.25v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_776" d="M42.096 1049.77v5.6h5.631v2.14h-5.631v5.61H39.97v-5.61H34.35v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_777" d="M50.768 1055.51H64.18v2.14H50.768z">
+</path>
+<path id="Vector_778" d="M67.26 1055.51h13.414v2.14H67.26z">
+</path>
+<path id="Vector_779" d="M83.752 1055.51h13.414v2.14H83.752z">
+</path>
+<path id="Vector_780" d="M100.244 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_781" d="M116.737 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_782" d="M133.229 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_783" d="M149.721 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_784" d="M166.213 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_785" d="M182.706 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_786" d="M199.198 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_787" d="M215.69 1055.51h13.414v2.14H215.69z">
+</path>
+<path id="Vector_788" d="M232.182 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_789" d="M248.675 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_790" d="M265.167 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_791" d="M281.659 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_792" d="M298.151 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_793" d="M314.644 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_794" d="M331.136 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_795" d="M347.628 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_796" d="M364.12 1055.51h13.414v2.14H364.12z">
+</path>
+<path id="Vector_797" d="M380.613 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_798" d="M397.105 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_799" d="M413.597 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_800" d="M430.089 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_801" d="M446.582 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_802" d="M463.074 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_803" d="M479.566 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_804" d="M496.059 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_805" d="M512.551 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_806" d="M529.043 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_807" d="M545.535 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_808" d="M562.028 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_809" d="M578.52 1055.51h13.414v2.14H578.52z">
+</path>
+<path id="Vector_810" d="M595.012 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_811" d="M611.504 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_812" d="M627.997 1055.51h13.413v2.14h-13.413z">
+</path>
+<path id="Vector_813" d="M644.489 1055.51h13.414v2.14h-13.414z">
+</path>
+<path id="Vector_814" d="M668.802 1049.77v5.6h5.631v2.14h-5.631v5.61h-2.126v-5.61h-5.619v-2.14h5.619v-5.6z">
+</path>
+<path id="Vector_815" d="M669.08 1014.25v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_816" d="M50.768 994.27H64.18v2.138H50.768z">
+</path>
+<path id="Vector_817" d="M67.26 994.27h13.414v2.138H67.26z">
+</path>
+<path id="Vector_818" d="M83.752 994.27h13.414v2.138H83.752z">
+</path>
+<path id="Vector_819" d="M100.244 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_820" d="M116.737 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_821" d="M133.229 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_822" d="M149.721 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_823" d="M166.213 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_824" d="M182.706 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_825" d="M199.198 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_826" d="M215.69 994.27h13.414v2.138H215.69z">
+</path>
+<path id="Vector_827" d="M232.182 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_828" d="M248.675 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_829" d="M265.167 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_830" d="M281.659 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_831" d="M298.151 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_832" d="M314.644 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_833" d="M331.136 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_834" d="M347.628 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_835" d="M364.12 994.27h13.414v2.138H364.12z">
+</path>
+<path id="Vector_836" d="M380.613 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_837" d="M397.105 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_838" d="M413.597 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_839" d="M430.089 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_840" d="M446.582 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_841" d="M463.074 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_842" d="M479.566 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_843" d="M496.059 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_844" d="M512.551 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_845" d="M529.043 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_846" d="M545.535 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_847" d="M562.028 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_848" d="M578.52 994.27h13.414v2.138H578.52z">
+</path>
+<path id="Vector_849" d="M595.012 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_850" d="M611.504 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_851" d="M627.997 994.27h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_852" d="M644.489 994.27h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_853" d="M668.802 988.526v5.605h5.631v2.138h-5.631v5.601h-2.126v-5.601h-5.619v-2.138h5.619v-5.605z">
+</path>
+</g>
+<path id="Vector_854" fill="#999" d="M702.065 983.63v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_855" fill="#656565" d="m712.875 984.541 9.946 21.289h-2.404l-9.959-21.289z">
+</path>
+<path id="Vector_856" fill="#656565" d="m729.367 984.541 9.947 21.289h-2.405l-9.959-21.289z">
+</path>
+<path id="Vector_857" fill="#656565" d="m745.859 984.541 9.947 21.289h-2.405l-9.959-21.289z">
+</path>
+<path id="Vector_858" fill="#fff" d="M265.142 958.639h2.417l4.112 11.892 4.126-11.892h2.417l-5.037 14.17h-2.999z">
+</path>
+<path id="Vector_859" fill="#fff" d="M281.634 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-3z">
+</path>
+<path id="Vector_860" fill="#fff" d="M298.126 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-2.999z">
+</path>
+<path id="Vector_861" fill="#fff" d="M314.618 958.639h2.417l4.113 11.892 4.125-11.892h2.418l-5.037 14.17h-2.999z">
+</path>
+<path id="Vector_862" fill="#fff" d="M331.111 958.639h2.417l4.112 11.892 4.126-11.892h2.417l-5.037 14.17h-2.999z">
+</path>
+<path id="Vector_863" fill="#fff" d="M347.603 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-3z">
+</path>
+<path id="Vector_864" fill="#fff" d="M364.095 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-2.999z">
+</path>
+<path id="Vector_865" fill="#fff" d="M380.587 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-2.999z">
+</path>
+<path id="Vector_866" fill="#fff" d="M397.08 958.639h2.417l4.112 11.892 4.126-11.892h2.417l-5.037 14.17h-2.999z">
+</path>
+<path id="Vector_867" fill="#fff" d="M413.572 958.639h2.417l4.113 11.892 4.125-11.892h2.417l-5.036 14.17h-2.999z">
+</path>
+<path id="Vector_868" fill="#999" d="M702.065 953.009v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_869" fill="#656565" d="m712.875 953.92 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_870" fill="#656565" d="m729.367 953.92 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_871" fill="#656565" d="m745.859 953.92 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_872" fill="#999" d="M702.065 922.388v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_873" fill="#656565" d="m712.875 923.299 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_874" fill="#656565" d="m729.367 923.299 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_875" fill="#656565" d="m745.859 923.299 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_876" fill="#fff" d="M172.047 859.995h5.366v1.809h-3.037v19.483h3.037v1.809h-5.366z">
+</path>
+<path id="Vector_877" fill="#fff" d="M528.347 892.678h14.414v2.15h-5.91v16.738h-2.569v-16.738h-5.935z">
+</path>
+<path id="Vector_878" fill="#fff" d="M546.738 892.678h11.211v2.15h-8.655v5.086h8.276v2.151h-8.276v7.351h8.896v2.15h-11.452z">
+</path>
+<path id="Vector_879" fill="#fff" d="M561.825 892.678h2.746l4.151 7.122 4.226-7.122h2.746l-5.656 8.881 6.061 10.007h-2.746l-4.631-8.135-4.999 8.135h-2.758l6.327-10.007z">
+</path>
+<path id="Vector_880" fill="#fff" d="M577.824 892.678h14.413v2.15h-5.909v16.738h-2.569v-16.738h-5.935z">
+</path>
+<path id="Vector_881" fill="#999" d="M702.065 891.767v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_882" fill="#656565" d="m712.875 892.678 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_883" fill="#656565" d="m729.367 892.678 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_884" fill="#656565" d="m745.859 892.678 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_885" fill="#fff" d="M186.464 864.157v7.097h2.961q1.772 0 2.765-.936t.994-2.619q0-1.683-.987-2.612-.988-.93-2.772-.93zm-2.556-2.1h5.517q3.164 0 4.796 1.436t1.633 4.206q0 2.796-1.626 4.226t-4.803 1.429h-2.961v7.591h-2.556z">
+</path>
+<path id="Vector_886" fill="#fff" d="M209.359 871.52q0-4.162-.854-5.946t-2.803-1.784q-1.936 0-2.79 1.784t-.854 5.946q0 4.15.854 5.933.854 1.784 2.79 1.784 1.949 0 2.803-1.777t.854-5.94m2.671 0q0 4.934-1.563 7.363t-4.765 2.429q-3.201 0-4.758-2.416t-1.556-7.376q0-4.947 1.563-7.376t4.751-2.429q3.202 0 4.765 2.429 1.563 2.43 1.563 7.376">
+</path>
+<path id="Vector_887" fill="#fff" d="M227.206 862.702v2.593a10.2 10.2 0 0 0-2.335-1.126 7.6 7.6 0 0 0-2.36-.379q-1.81 0-2.86.841t-1.05 2.271q0 1.253.689 1.911.69.657 2.576 1.1l1.341.304q2.657.62 3.872 1.948 1.215 1.329 1.215 3.618 0 2.696-1.67 4.112-1.671 1.417-4.86 1.417a13 13 0 0 1-2.67-.284 15 15 0 0 1-2.695-.854v-2.721q1.455.924 2.752 1.354a8.3 8.3 0 0 0 2.613.43q1.936 0 3.012-.866 1.076-.867 1.076-2.423 0-1.418-.741-2.163-.74-.747-2.575-1.152l-1.366-.316q-2.632-.594-3.822-1.797-1.19-1.201-1.19-3.226 0-2.53 1.702-4.054t4.524-1.525q1.088 0 2.291.247 1.202.246 2.531.74">
+</path>
+<path id="Vector_888" fill="#fff" d="M231.486 862.057H245.9v2.15h-5.91v16.738h-2.569v-16.738h-5.935z">
+</path>
+<path id="Vector_889" fill="#fff" d="M261.354 879.389a7 7 0 0 1-2.309 1.436 7.8 7.8 0 0 1-2.778.487q-3.594 0-5.593-2.574-2-2.575-1.999-7.218 0-4.63 2.024-7.218t5.632-2.587q1.19 0 2.277.335a8 8 0 0 1 2.101 1.019v2.619q-1.024-.975-2.101-1.436a5.7 5.7 0 0 0-2.277-.462q-2.493 0-3.74 1.929-1.246 1.93-1.246 5.801 0 3.935 1.208 5.826 1.209 1.891 3.714 1.891.849 0 1.487-.196t1.158-.613v-5.074h-2.746v-2.1h5.188z">
+</path>
+<path id="Vector_890" fill="#fff" d="M273.494 872.026a3.6 3.6 0 0 1 1.683.955q.696.702 1.733 2.802l2.569 5.162h-2.746l-2.252-4.769q-.975-2.037-1.753-2.626-.779-.588-2.031-.588h-2.442v7.983h-2.569v-18.888h5.264q3.113 0 4.771 1.404t1.658 4.061q0 1.873-1.019 3.055-1.019 1.184-2.866 1.449m-5.239-7.869v6.705h2.796q1.836 0 2.734-.822.898-.823.898-2.518 0-1.632-.955-2.499-.955-.866-2.778-.866z">
+</path>
+<path id="Vector_891" fill="#fff" d="M282.861 862.057h11.212v2.15h-8.655v5.086h8.276v2.151h-8.276v7.351h8.896v2.15h-11.453z">
+</path>
+<path id="Vector_892" fill="#fff" d="M309.667 862.702v2.593a10.1 10.1 0 0 0-2.335-1.126 7.6 7.6 0 0 0-2.36-.379q-1.81 0-2.86.841t-1.05 2.271q0 1.253.69 1.911.689.657 2.575 1.1l1.341.304q2.658.62 3.872 1.948 1.215 1.329 1.215 3.618 0 2.696-1.67 4.112-1.67 1.417-4.859 1.417-1.329 0-2.671-.284a15 15 0 0 1-2.695-.854v-2.721q1.455.924 2.752 1.354t2.614.43q1.935 0 3.011-.866 1.076-.867 1.076-2.423 0-1.418-.74-2.163-.74-.747-2.576-1.152l-1.366-.316q-2.632-.594-3.822-1.797-1.19-1.201-1.189-3.226 0-2.53 1.702-4.054t4.524-1.525q1.088 0 2.29.247 1.203.246 2.531.74">
+</path>
+<path id="Vector_893" fill="#fff" d="M322.464 859.995v23.101h-5.365v-1.809h3.037v-19.483h-3.037v-1.809z">
+</path>
+<path id="Vector_894" fill="#999" d="M702.065 861.146v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_895" fill="#656565" d="m712.875 862.057 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_896" fill="#656565" d="m729.367 862.057 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_897" fill="#656565" d="m745.859 862.057 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_898" fill="#fff" d="m519.055 848.173 4.442-16.737h2.645l-5.53 18.888h-3.101l-5.53-18.888h2.645z">
+</path>
+<path id="Vector_899" fill="#fff" d="M530.245 831.436h11.212v2.15h-8.656v5.086h8.276v2.151h-8.276v7.35h8.897v2.151h-11.453z">
+</path>
+<path id="Vector_900" fill="#fff" d="M557.823 849.654a9 9 0 0 1-2 .778 8.8 8.8 0 0 1-2.176.259q-3.632 0-5.638-2.568t-2.005-7.224q0-4.63 2.018-7.218 2.019-2.587 5.625-2.587 1.152 0 2.176.259 1.025.26 2 .778v2.619a7.1 7.1 0 0 0-2.012-1.176 6.1 6.1 0 0 0-2.164-.405q-2.493 0-3.733 1.923t-1.24 5.807q0 3.871 1.24 5.794t3.733 1.923a6.1 6.1 0 0 0 2.183-.405 6.9 6.9 0 0 0 1.993-1.176z">
+</path>
+<path id="Vector_901" fill="#fff" d="M561.332 831.436h14.413v2.15h-5.91v16.738h-2.568v-16.738h-5.935z">
+</path>
+<path id="Vector_902" fill="#fff" d="M588.681 840.899q0-4.162-.854-5.946-.853-1.784-2.803-1.784-1.936 0-2.79 1.784t-.854 5.946q0 4.15.854 5.933.854 1.785 2.79 1.784 1.95 0 2.803-1.777.855-1.777.854-5.94m2.671 0q0 4.934-1.563 7.363t-4.765 2.429-4.758-2.416-1.556-7.376q0-4.947 1.563-7.376t4.751-2.429q3.202 0 4.765 2.429t1.563 7.376">
+</path>
+<path id="Vector_903" fill="#fff" d="M603.339 841.405a3.6 3.6 0 0 1 1.683.955q.696.702 1.734 2.802l2.568 5.162h-2.746l-2.252-4.769q-.975-2.037-1.753-2.626-.779-.588-2.031-.588H598.1v7.983h-2.569v-18.888h5.264q3.114 0 4.771 1.404t1.658 4.061q0 1.873-1.019 3.055t-2.866 1.449m-5.239-7.869v6.705h2.797q1.835 0 2.733-.822.898-.823.898-2.518 0-1.632-.955-2.499-.955-.866-2.778-.866z">
+</path>
+<path id="Vector_904" fill="#fff" d="M623.02 832.081v2.593a10.1 10.1 0 0 0-2.335-1.126 7.6 7.6 0 0 0-2.36-.379q-1.809 0-2.86.841t-1.05 2.271q0 1.253.69 1.91.689.659 2.575 1.101l1.341.304q2.658.62 3.872 1.948 1.215 1.329 1.215 3.618 0 2.695-1.67 4.112t-4.859 1.417a13 13 0 0 1-2.671-.285 15 15 0 0 1-2.695-.854v-2.72q1.456.924 2.752 1.354 1.297.43 2.614.43 1.935 0 3.011-.866 1.076-.867 1.076-2.423 0-1.417-.74-2.164-.74-.746-2.575-1.151l-1.367-.316q-2.633-.595-3.822-1.797t-1.189-3.226q0-2.53 1.702-4.055t4.524-1.524q1.088 0 2.29.247 1.202.246 2.531.74">
+</path>
+<path id="Vector_905" fill="#999" d="M702.065 830.525v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_906" fill="#656565" d="m712.875 831.436 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_907" fill="#656565" d="m729.367 831.436 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_908" fill="#656565" d="m745.859 831.436 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<g id="postgres" fill="#fff">
+<path id="Vector_909" d="M42.096 804.8v5.604h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619V804.8z">
+</path>
+<path id="Vector_910" d="M42.374 830.525v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_911" d="M42.374 861.146v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_912" d="M42.374 891.767v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_913" d="M42.096 927.284v5.605h5.631v2.138h-5.631v5.604H39.97v-5.604H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_914" d="M50.768 933.028H64.18v2.138H50.768z">
+</path>
+<path id="Vector_915" d="M67.26 933.028h13.414v2.138H67.26z">
+</path>
+<path id="Vector_916" d="M83.752 933.028h13.414v2.138H83.752z">
+</path>
+<path id="Vector_917" d="M100.244 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_918" d="M116.737 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_919" d="M133.229 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_920" d="M149.721 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_921" d="M166.213 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_922" d="M182.706 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_923" d="M199.198 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_924" d="M215.69 933.028h13.414v2.138H215.69z">
+</path>
+<path id="Vector_925" d="M232.182 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_926" d="M248.675 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_927" d="M265.167 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_928" d="M281.659 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_929" d="M298.151 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_930" d="M314.644 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_931" d="M331.136 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_932" d="M347.628 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_933" d="M364.12 933.028h13.414v2.138H364.12z">
+</path>
+<path id="Vector_934" d="M380.613 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_935" d="M397.105 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_936" d="M413.597 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_937" d="M430.089 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_938" d="M446.582 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_939" d="M470.894 927.284v5.605h5.632v2.138h-5.632v5.604h-2.126v-5.604h-5.618v-2.138h5.618v-5.605z">
+</path>
+<path id="Vector_940" d="M479.566 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_941" d="M496.059 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_942" d="M512.551 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_943" d="M529.043 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_944" d="M545.535 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_945" d="M562.028 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_946" d="M578.52 933.028h13.414v2.138H578.52z">
+</path>
+<path id="Vector_947" d="M595.012 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_948" d="M611.504 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_949" d="M627.997 933.028h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_950" d="M644.489 933.028h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_951" d="M668.802 927.284v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_952" d="M471.173 891.767v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_953" d="M669.08 891.767v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_954" d="M470.894 866.042v5.605h5.632v2.138h-5.632v5.604h-2.126v-5.604h-5.618v-2.138h5.618v-5.605z">
+</path>
+<path id="Vector_955" d="M479.566 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_956" d="M496.059 871.786h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_957" d="M512.551 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_958" d="M529.043 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_959" d="M545.535 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_960" d="M562.028 871.786h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_961" d="M578.52 871.786h13.414v2.138H578.52z">
+</path>
+<path id="Vector_962" d="M595.012 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_963" d="M611.504 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_964" d="M627.997 871.786h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_965" d="M644.489 871.786h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_966" d="M668.802 866.042v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_967" d="M471.173 830.525v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_968" d="M669.08 830.525v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_969" d="M50.768 810.543H64.18v2.139H50.768z">
+</path>
+<path id="Vector_970" d="M67.26 810.543h13.414v2.139H67.26z">
+</path>
+<path id="Vector_971" d="M83.752 810.543h13.414v2.139H83.752z">
+</path>
+<path id="Vector_972" d="M100.244 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_973" d="M116.737 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_974" d="M133.229 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_975" d="M149.721 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_976" d="M166.213 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_977" d="M182.706 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_978" d="M199.198 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_979" d="M215.69 810.543h13.414v2.139H215.69z">
+</path>
+<path id="Vector_980" d="M232.182 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_981" d="M248.675 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_982" d="M265.167 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_983" d="M281.659 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_984" d="M298.151 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_985" d="M314.644 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_986" d="M331.136 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_987" d="M347.628 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_988" d="M364.12 810.543h13.414v2.139H364.12z">
+</path>
+<path id="Vector_989" d="M380.613 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_990" d="M397.105 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_991" d="M413.597 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_992" d="M430.089 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_993" d="M446.582 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_994" d="M470.894 804.8v5.604h5.632v2.138h-5.632v5.605h-2.126v-5.605h-5.618v-2.138h5.618V804.8z">
+</path>
+<path id="Vector_995" d="M479.566 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_996" d="M496.059 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_997" d="M512.551 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_998" d="M529.043 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_999" d="M545.535 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_1000" d="M562.028 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_1001" d="M578.52 810.543h13.414v2.139H578.52z">
+</path>
+<path id="Vector_1002" d="M595.012 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_1003" d="M611.504 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_1004" d="M627.997 810.543h13.413v2.139h-13.413z">
+</path>
+<path id="Vector_1005" d="M644.489 810.543h13.414v2.139h-13.414z">
+</path>
+<path id="Vector_1006" d="M668.802 804.8v5.604h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619V804.8z">
+</path>
+</g>
+<path id="Vector_1007" fill="#999" d="M702.065 799.904v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1008" fill="#656565" d="m712.875 800.814 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1009" fill="#656565" d="m729.367 800.814 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1010" fill="#656565" d="m745.859 800.814 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1011" fill="#999" d="M702.065 769.282v25.911h-2.177v-25.911z">
+</path>
+<path id="Vector_1012" fill="#656565" d="m712.875 770.193 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1013" fill="#656565" d="m729.367 770.193 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1014" fill="#656565" d="m745.859 770.193 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1015" fill="#999" d="M702.065 738.661v25.911h-2.177v-25.911z">
+</path>
+<path id="Vector_1016" fill="#656565" d="m712.875 739.572 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1017" fill="#656565" d="m729.367 739.572 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1018" fill="#656565" d="m745.859 739.572 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1019" fill="#999" d="M702.065 708.04v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1020" fill="#656565" d="m712.875 708.951 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1021" fill="#656565" d="m729.367 708.951 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1022" fill="#656565" d="m745.859 708.951 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1023" fill="#999" d="M702.065 677.419v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1024" fill="#656565" d="m712.875 678.33 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1025" fill="#656565" d="m729.367 678.33 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1026" fill="#656565" d="m745.859 678.33 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1027" fill="#fff" d="M89.586 615.026h5.365v1.809h-3.037v19.483h3.037v1.809h-5.365z">
+</path>
+<path id="Vector_1028" fill="#fff" d="M468.908 645.647h5.365v1.809h-3.037v19.483h3.037v1.81h-5.365z">
+</path>
+<path id="Vector_1029" fill="#fff" d="M491.854 665.927a9 9 0 0 1-2 .778 8.8 8.8 0 0 1-2.176.26q-3.632 0-5.638-2.569t-2.005-7.224q0-4.63 2.018-7.217 2.019-2.588 5.625-2.588 1.152 0 2.176.26 1.026.26 2 .778v2.619a7 7 0 0 0-2.012-1.177 6.1 6.1 0 0 0-2.164-.405q-2.493 0-3.733 1.923t-1.24 5.807q0 3.872 1.24 5.795t3.733 1.923a6.1 6.1 0 0 0 2.183-.405 6.9 6.9 0 0 0 1.993-1.177z">
+</path>
+<path id="Vector_1030" fill="#fff" d="M504.385 657.678a3.57 3.57 0 0 1 1.683.956q.696.702 1.734 2.802l2.569 5.162h-2.746l-2.253-4.77q-.974-2.037-1.752-2.625-.779-.588-2.031-.588h-2.443v7.983h-2.569v-18.889h5.265q3.113 0 4.77 1.404 1.659 1.405 1.658 4.061 0 1.873-1.019 3.056-1.018 1.182-2.866 1.448m-5.239-7.869v6.705h2.797q1.835 0 2.733-.822t.899-2.518q0-1.632-.956-2.498t-2.777-.867z">
+</path>
+<path id="Vector_1031" fill="#fff" d="M522.712 657.172q0-4.162-.854-5.946-.853-1.784-2.803-1.784-1.936 0-2.79 1.784t-.854 5.946q0 4.15.854 5.934t2.79 1.784q1.95 0 2.803-1.778.855-1.778.854-5.94m2.671 0q0 4.935-1.563 7.363-1.563 2.43-4.765 2.43t-4.758-2.417q-1.556-2.416-1.556-7.376 0-4.947 1.563-7.375 1.562-2.43 4.751-2.43 3.202 0 4.765 2.43 1.563 2.428 1.563 7.375">
+</path>
+<path id="Vector_1032" fill="#fff" d="M527.993 647.772h3.492l7.391 15.498v-15.498h2.72v18.826h-3.492l-7.391-15.498v15.498h-2.72z">
+</path>
+<path id="Vector_1033" fill="#fff" d="M553.356 645.647v23.102h-5.366v-1.81h3.037v-19.483h-3.037v-1.809z">
+</path>
+<path id="Vector_1034" fill="#999" d="M702.065 646.798v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1035" fill="#656565" d="m712.875 647.709 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1036" fill="#656565" d="m729.367 647.709 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1037" fill="#656565" d="m745.859 647.709 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1038" fill="#fff" d="m106.749 619.34-2.696 9.666h5.391zm-1.544-2.252h3.1l5.783 18.888h-2.644l-1.392-4.921h-6.619l-1.366 4.921h-2.645z">
+</path>
+<path id="Vector_1039" fill="#fff" d="M120.495 619.188v7.097h2.961q1.772 0 2.765-.936t.993-2.619q0-1.682-.987-2.612t-2.771-.93zm-2.556-2.1h5.517q3.164 0 4.796 1.436t1.633 4.206q0 2.796-1.627 4.226-1.625 1.43-4.802 1.43h-2.961v7.59h-2.556z">
+</path>
+<path id="Vector_1040" fill="#fff" d="M134.482 617.088h10.49v2.151h-3.961v14.587h3.961v2.15h-10.49v-2.15h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1041" fill="#fff" d="M157.542 615.026v23.101h-5.366v-1.809h3.037v-19.483h-3.037v-1.809z">
+</path>
+<path id="Vector_1042" fill="#fff" d="M254.508 615.026h5.366v1.809h-3.037v19.483h3.037v1.809h-5.366z">
+</path>
+<path id="Vector_1043" fill="#fff" d="m271.671 619.34-2.695 9.666h5.391zm-1.544-2.252h3.101l5.783 18.888h-2.645l-1.392-4.921h-6.618l-1.367 4.921h-2.645z">
+</path>
+<path id="Vector_1044" fill="#fff" d="M285.418 619.188v7.097h2.961q1.771 0 2.765-.936.993-.936.993-2.619 0-1.682-.987-2.612t-2.771-.93zm-2.557-2.1h5.518q3.163 0 4.796 1.436 1.632 1.435 1.632 4.206 0 2.796-1.626 4.226t-4.802 1.43h-2.961v7.59h-2.557z">
+</path>
+<path id="Vector_1045" fill="#fff" d="M299.404 617.088h10.491v2.151h-3.961v14.587h3.961v2.15h-10.491v-2.15h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1046" fill="#fff" d="M322.464 615.026v23.101h-5.365v-1.809h3.037v-19.483h-3.037v-1.809z">
+</path>
+<path id="Vector_1047" fill="#999" d="M702.065 616.177v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1048" fill="#656565" d="m712.875 617.088 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1049" fill="#656565" d="m729.367 617.088 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1050" fill="#656565" d="m745.859 617.088 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1051" fill="#fff" d="M452.416 584.405h5.365v1.809h-3.037v19.483h3.037v1.809h-5.365z">
+</path>
+<path id="Vector_1052" fill="#fff" d="M461.783 586.467h2.493l1.81 15.333 2.151-10.146h2.67l2.177 10.172 1.809-15.359h2.493l-2.822 18.888h-2.417l-2.569-11.221-2.556 11.221h-2.417z">
+</path>
+<path id="Vector_1053" fill="#fff" d="M489.728 595.93q0-4.163-.854-5.946-.855-1.784-2.803-1.784-1.936 0-2.791 1.784-.854 1.783-.854 5.946 0 4.15.854 5.934.855 1.783 2.791 1.783 1.948 0 2.803-1.777.854-1.777.854-5.94m2.67 0q0 4.934-1.563 7.363t-4.764 2.429q-3.202 0-4.758-2.416t-1.557-7.376q0-4.947 1.563-7.376t4.752-2.429q3.201 0 4.764 2.429 1.563 2.43 1.563 7.376">
+</path>
+<path id="Vector_1054" fill="#fff" d="M504.385 596.436a3.6 3.6 0 0 1 1.683.955q.696.702 1.734 2.803l2.569 5.161h-2.746l-2.253-4.769q-.974-2.037-1.752-2.625-.779-.59-2.031-.589h-2.443v7.983h-2.569v-18.888h5.265q3.113 0 4.77 1.404 1.659 1.404 1.658 4.061 0 1.872-1.019 3.056-1.018 1.182-2.866 1.448m-5.239-7.869v6.705h2.797q1.835 0 2.733-.822t.899-2.518q0-1.632-.956-2.498t-2.777-.867z">
+</path>
+<path id="Vector_1055" fill="#fff" d="M512.994 586.467h2.569v8.4l7.985-8.4h2.999l-7.353 7.717 7.568 11.171h-3.088l-6.163-9.463-1.948 2.075v7.388h-2.569z">
+</path>
+<path id="Vector_1056" fill="#fff" d="M530.245 586.467h11.212v2.151h-8.656v5.085h8.276v2.151h-8.276v7.351h8.897v2.15h-11.453z">
+</path>
+<path id="Vector_1057" fill="#fff" d="M553.862 596.436a3.6 3.6 0 0 1 1.683.955q.696.702 1.734 2.803l2.569 5.161h-2.746l-2.253-4.769q-.975-2.037-1.753-2.625-.777-.59-2.031-.589h-2.442v7.983h-2.569v-18.888h5.264q3.114 0 4.771 1.404t1.658 4.061q0 1.872-1.019 3.056-1.018 1.182-2.866 1.448m-5.239-7.869v6.705h2.797q1.834 0 2.733-.822t.899-2.518q0-1.632-.956-2.498-.955-.867-2.778-.867z">
+</path>
+<path id="Vector_1058" fill="#fff" d="M569.848 584.405v23.101h-5.365v-1.809h3.037v-19.483h-3.037v-1.809z">
+</path>
+<path id="Vector_1059" fill="#999" d="M702.065 585.556v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1060" fill="#656565" d="m712.875 586.467 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1061" fill="#656565" d="m729.367 586.467 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1062" fill="#656565" d="m745.859 586.467 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<g id="backend" fill="#fff">
+<path id="Vector_1063" d="M42.096 559.831v5.605h5.631v2.138h-5.631v5.604H39.97v-5.604H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1064" d="M42.374 585.556v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1065" d="M42.374 616.177v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1066" d="M42.374 646.798v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1067" d="M42.096 682.315v5.605h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1068" d="M50.768 688.059H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1069" d="M67.26 688.059h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1070" d="M83.752 688.059h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1071" d="M100.244 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1072" d="M116.737 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1073" d="M133.229 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1074" d="M149.721 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1075" d="M166.213 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1076" d="M182.706 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1077" d="M199.198 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1078" d="M223.511 682.315v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1079" d="M232.182 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1080" d="M248.675 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1081" d="M265.167 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1082" d="M281.659 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1083" d="M298.151 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1084" d="M314.644 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1085" d="M331.136 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1086" d="M355.449 682.315v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1087" d="M364.12 688.059h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1088" d="M380.613 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1089" d="M397.105 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1090" d="M413.597 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1091" d="M430.089 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1092" d="M446.582 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1093" d="M463.074 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1094" d="M479.566 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1095" d="M496.059 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1096" d="M512.551 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1097" d="M529.043 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1098" d="M545.535 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1099" d="M562.028 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1100" d="M578.52 688.059h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1101" d="M595.012 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1102" d="M611.504 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1103" d="M627.997 688.059h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1104" d="M644.489 688.059h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1105" d="M668.802 682.315v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1106" d="M223.789 646.798v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1107" d="M355.727 646.798v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1108" d="M669.08 646.798v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1109" d="M223.789 616.177v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1110" d="M355.449 621.073v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1111" d="M364.12 626.817h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1112" d="M380.613 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1113" d="M397.105 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1114" d="M413.597 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1115" d="M430.089 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1116" d="M446.582 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1117" d="M463.074 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1118" d="M479.566 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1119" d="M496.059 626.817h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1120" d="M512.551 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1121" d="M529.043 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1122" d="M545.535 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1123" d="M562.028 626.817h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1124" d="M578.52 626.817h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1125" d="M595.012 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1126" d="M611.504 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1127" d="M627.997 626.817h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1128" d="M644.489 626.817h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1129" d="M668.802 621.073v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1130" d="M223.789 585.556v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1131" d="M355.727 585.556v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1132" d="M669.08 585.556v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1133" d="M50.768 565.575H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1134" d="M67.26 565.575h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1135" d="M83.752 565.575h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1136" d="M100.244 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1137" d="M116.737 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1138" d="M133.229 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1139" d="M149.721 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1140" d="M166.213 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1141" d="M182.706 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1142" d="M199.198 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1143" d="M223.511 559.831v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1144" d="M232.182 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1145" d="M248.675 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1146" d="M265.167 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1147" d="M281.659 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1148" d="M298.151 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1149" d="M314.644 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1150" d="M331.136 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1151" d="M355.449 559.831v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1152" d="M364.12 565.575h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1153" d="M380.613 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1154" d="M397.105 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1155" d="M413.597 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1156" d="M430.089 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1157" d="M446.582 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1158" d="M463.074 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1159" d="M479.566 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1160" d="M496.059 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1161" d="M512.551 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1162" d="M529.043 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1163" d="M545.535 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1164" d="M562.028 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1165" d="M578.52 565.575h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1166" d="M595.012 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1167" d="M611.504 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1168" d="M627.997 565.575h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1169" d="M644.489 565.575h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1170" d="M668.802 559.831v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+</g>
+<path id="Vector_1171" fill="#999" d="M702.065 554.935v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1172" fill="#656565" d="m712.875 555.846 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1173" fill="#656565" d="m729.367 555.846 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1174" fill="#656565" d="m745.859 555.846 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1175" fill="#999" d="M702.065 524.314v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1176" fill="#656565" d="m712.875 525.225 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1177" fill="#656565" d="m729.367 525.225 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1178" fill="#656565" d="m745.859 525.225 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1179" fill="#999" d="M702.065 493.693v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1180" fill="#656565" d="m712.875 494.604 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1181" fill="#656565" d="m729.367 494.604 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1182" fill="#656565" d="m745.859 494.604 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1183" fill="#999" d="M702.065 463.072v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1184" fill="#656565" d="m712.875 463.982 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1185" fill="#656565" d="m729.367 463.982 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1186" fill="#656565" d="m745.859 463.982 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1187" fill="#999" d="M702.065 432.45v25.911h-2.177V432.45z">
+</path>
+<path id="Vector_1188" fill="#656565" d="m712.875 433.361 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1189" fill="#656565" d="m729.367 433.361 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1190" fill="#656565" d="m745.859 433.361 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1191" fill="#fff" d="M150.974 402.74h10.49v2.151h-3.96v14.587h3.96v2.151h-10.49v-2.151h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1192" fill="#fff" d="M165.163 402.803h3.493l7.39 15.498v-15.498h2.721v18.826h-3.493l-7.39-15.498v15.498h-2.721z">
+</path>
+<path id="Vector_1193" fill="#fff" d="M184.363 402.74h11.124v2.151h-8.555v5.061h7.757v2.15h-7.757v9.527h-2.569z">
+</path>
+<path id="Vector_1194" fill="#fff" d="M207.524 412.71q.988.252 1.684.955.695.702 1.733 2.802l2.569 5.162h-2.746l-2.252-4.77q-.975-2.037-1.753-2.625-.779-.588-2.031-.588h-2.442v7.983h-2.569V402.74h5.264q3.113 0 4.771 1.405 1.657 1.404 1.657 4.061 0 1.872-1.018 3.055t-2.867 1.449m-5.238-7.87v6.706h2.796q1.835 0 2.734-.823.898-.822.898-2.517 0-1.632-.955-2.499-.956-.867-2.778-.867z">
+</path>
+<path id="Vector_1195" fill="#fff" d="m222.195 404.992-2.696 9.666h5.391zm-1.544-2.252h3.1l5.783 18.889h-2.645l-1.392-4.922h-6.618l-1.367 4.922h-2.644z">
+</path>
+<path id="Vector_1196" fill="#fff" d="M239.547 416.556h-2.404v-1.949q0-1.239.386-2.106.385-.867 1.449-1.904l1.139-1.126q.785-.747 1.082-1.303.297-.557.297-1.177 0-1.125-.829-1.822-.828-.695-2.208-.695-.987 0-2.113.436-1.127.436-2.367 1.297v-2.379q1.19-.72 2.398-1.075a9 9 0 0 1 2.525-.354q2.354 0 3.752 1.214 1.398 1.215 1.398 3.252a3.9 3.9 0 0 1-.424 1.79q-.423.828-1.613 1.992l-1.114 1.088q-.873.836-1.113 1.367-.241.53-.241 1.303v2.151m-2.493 1.859h2.569v3.214h-2.569z">
+</path>
+<path id="Vector_1197" fill="#fff" d="M441.605 403.385v2.594a10 10 0 0 0-2.335-1.126 7.6 7.6 0 0 0-2.36-.379q-1.809 0-2.86.841t-1.05 2.271q0 1.253.69 1.91.69.659 2.575 1.101l1.341.303q2.658.62 3.873 1.949 1.214 1.328 1.214 3.618 0 2.695-1.67 4.112-1.67 1.416-4.859 1.417-1.329 0-2.67-.285a15 15 0 0 1-2.696-.854v-2.72q1.455.924 2.753 1.354 1.296.43 2.613.43 1.935 0 3.011-.867 1.077-.866 1.076-2.422 0-1.417-.74-2.164-.74-.746-2.575-1.151l-1.367-.316q-2.632-.596-3.822-1.797t-1.189-3.226q0-2.53 1.702-4.055t4.524-1.524q1.088 0 2.29.246 1.202.248 2.531.74">
+</path>
+<path id="Vector_1198" fill="#fff" d="M450.34 404.84v7.098h2.961q1.772 0 2.765-.936.994-.937.994-2.619t-.987-2.613-2.772-.93zm-2.556-2.1h5.517q3.164 0 4.796 1.436t1.633 4.207q0 2.796-1.626 4.225-1.626 1.43-4.803 1.43h-2.961v7.591h-2.556z">
+</path>
+<path id="Vector_1199" fill="#fff" d="M464.276 402.74h11.212v2.151h-8.656v5.086h8.276v2.151h-8.276v7.35h8.897v2.151h-11.453z">
+</path>
+<path id="Vector_1200" fill="#fff" d="M491.854 420.958a8.8 8.8 0 0 1-2 .778 8.8 8.8 0 0 1-2.176.26q-3.632 0-5.638-2.568-2.005-2.57-2.005-7.224 0-4.63 2.018-7.218 2.019-2.587 5.625-2.587 1.152 0 2.176.259 1.026.26 2 .778v2.619a7 7 0 0 0-2.012-1.177 6.1 6.1 0 0 0-2.164-.404q-2.493 0-3.733 1.923-1.24 1.922-1.24 5.807 0 3.87 1.24 5.794t3.733 1.923a6.1 6.1 0 0 0 2.183-.405 6.9 6.9 0 0 0 1.993-1.176z">
+</path>
+<path id="Vector_1201" fill="#fff" d="M497.311 402.74h10.491v2.151h-3.961v14.587h3.961v2.151h-10.491v-2.151h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1202" fill="#fff" d="M514.208 402.74h11.124v2.151h-8.555v5.061h7.758v2.15h-7.758v9.527h-2.569z">
+</path>
+<path id="Vector_1203" fill="#fff" d="M530.296 402.74h10.49v2.151h-3.96v14.587h3.96v2.151h-10.49v-2.151h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1204" fill="#fff" d="M557.823 420.958a8.8 8.8 0 0 1-2 .778 8.8 8.8 0 0 1-2.176.26q-3.632 0-5.638-2.568-2.005-2.57-2.005-7.224 0-4.63 2.018-7.218 2.019-2.587 5.625-2.587 1.152 0 2.176.259 1.025.26 2 .778v2.619a7 7 0 0 0-2.012-1.177 6.1 6.1 0 0 0-2.164-.404q-2.493 0-3.733 1.923-1.24 1.922-1.24 5.807 0 3.87 1.24 5.794t3.733 1.923a6.1 6.1 0 0 0 2.183-.405 6.9 6.9 0 0 0 1.993-1.176z">
+</path>
+<path id="Vector_1205" fill="#fff" d="M565.659 416.518h4.455v5.111h-4.455z">
+</path>
+<path id="Vector_1206" fill="#999" d="M702.065 401.829v25.911h-2.177v-25.911z">
+</path>
+<path id="Vector_1207" fill="#656565" d="m712.875 402.74 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1208" fill="#656565" d="m729.367 402.74 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1209" fill="#656565" d="m745.859 402.74 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1210" fill="#999" d="M702.065 371.208v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1211" fill="#656565" d="m712.875 372.119 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1212" fill="#656565" d="m729.367 372.119 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1213" fill="#656565" d="m745.859 372.119 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1214" fill="#fff" d="m139.733 343.75-2.695 9.666h5.391zm-1.544-2.252h3.101l5.783 18.889h-2.645l-1.392-4.922h-6.618l-1.367 4.922h-2.645z">
+</path>
+<path id="Vector_1215" fill="#fff" d="M153.48 343.598v7.098h2.961q1.771 0 2.765-.937.993-.936.993-2.618 0-1.683-.987-2.613t-2.771-.93zm-2.557-2.1h5.518q3.163 0 4.796 1.436 1.632 1.435 1.632 4.207 0 2.796-1.626 4.225-1.626 1.43-4.802 1.43h-2.961v7.591h-2.557z">
+</path>
+<path id="Vector_1216" fill="#fff" d="M167.466 341.498h10.491v2.151h-3.961v14.587h3.961v2.151h-10.491v-2.151h3.961v-14.587h-3.961z">
+</path>
+<path id="Vector_1217" fill="#fff" d="M196.904 362.791v2.15h-15.489v-2.15z">
+</path>
+<path id="Vector_1218" fill="#fff" d="M199.641 341.498h2.569v8.401l7.985-8.401h2.999l-7.353 7.717 7.568 11.172h-3.088l-6.163-9.464-1.948 2.075v7.389h-2.569z">
+</path>
+<path id="Vector_1219" fill="#fff" d="M216.892 341.498h11.212v2.151h-8.655v5.086h8.276v2.15h-8.276v7.351h8.896v2.151h-11.453z">
+</path>
+<path id="Vector_1220" fill="#fff" d="M231.36 341.498h2.721l4.606 8.337 4.593-8.337h2.746l-6.061 10.412v8.477h-2.569v-8.477z">
+</path>
+<path id="Vector_1221" fill="#fff" d="m476.703 349.367-5.619 3.037 5.619 3.049-.886 1.543-5.29-3.175v5.895h-1.809v-5.895l-5.29 3.175-.886-1.543 5.632-3.049-5.632-3.037.886-1.556 5.29 3.176v-5.896h1.809v5.896l5.29-3.176z">
+</path>
+<path id="Vector_1222" fill="#fff" d="m493.195 349.367-5.618 3.037 5.618 3.049-.886 1.543-5.289-3.175v5.895h-1.81v-5.895l-5.289 3.175-.886-1.543 5.631-3.049-5.631-3.037.886-1.556 5.289 3.176v-5.896h1.81v5.896l5.289-3.176z">
+</path>
+<path id="Vector_1223" fill="#fff" d="m509.687 349.367-5.618 3.037 5.618 3.049-.885 1.543-5.29-3.175v5.895h-1.81v-5.895l-5.289 3.175-.886-1.543 5.631-3.049-5.631-3.037.886-1.556 5.289 3.176v-5.896h1.81v5.896l5.29-3.176z">
+</path>
+<path id="Vector_1224" fill="#fff" d="m526.18 349.367-5.619 3.037 5.619 3.049-.886 1.543-5.29-3.175v5.895h-1.809v-5.895l-5.29 3.175-.886-1.543 5.632-3.049-5.632-3.037.886-1.556 5.29 3.176v-5.896h1.809v5.896l5.29-3.176z">
+</path>
+<path id="Vector_1225" fill="#fff" d="m542.672 349.367-5.619 3.037 5.619 3.049-.886 1.543-5.289-3.175v5.895h-1.81v-5.895l-5.29 3.175-.885-1.543 5.631-3.049-5.631-3.037.885-1.556 5.29 3.176v-5.896h1.81v5.896l5.289-3.176z">
+</path>
+<path id="Vector_1226" fill="#fff" d="m559.164 349.367-5.618 3.037 5.618 3.049-.886 1.543-5.289-3.175v5.895h-1.81v-5.895l-5.289 3.175-.886-1.543 5.631-3.049-5.631-3.037.886-1.556 5.289 3.176v-5.896h1.81v5.896l5.289-3.176z">
+</path>
+<path id="Vector_1227" fill="#999" d="M702.065 340.587v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1228" fill="#656565" d="m712.875 341.498 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1229" fill="#656565" d="m729.367 341.498 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1230" fill="#656565" d="m745.859 341.498 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<g id="secrets-config" fill="#fff">
+<path id="Vector_1231" d="M42.096 314.862v5.605h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1232" d="M42.374 340.587v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1233" d="M42.096 376.104v5.605h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1234" d="M42.374 401.829v25.911h-2.176v-25.911z">
+</path>
+<path id="Vector_1235" d="M42.096 437.347v5.604h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619v-5.604z">
+</path>
+<path id="Vector_1236" d="M50.768 443.09H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1237" d="M67.26 443.09h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1238" d="M83.752 443.09h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1239" d="M100.244 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1240" d="M116.737 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1241" d="M133.229 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1242" d="M149.721 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1243" d="M166.213 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1244" d="M182.706 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1245" d="M199.198 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1246" d="M215.69 443.09h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1247" d="M232.182 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1248" d="M248.675 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1249" d="M265.167 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1250" d="M281.659 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1251" d="M298.151 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1252" d="M314.644 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1253" d="M331.136 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1254" d="M355.449 437.347v5.604h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.604z">
+</path>
+<path id="Vector_1255" d="M364.12 443.09h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1256" d="M380.613 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1257" d="M397.105 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1258" d="M413.597 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1259" d="M430.089 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1260" d="M446.582 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1261" d="M463.074 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1262" d="M479.566 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1263" d="M496.059 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1264" d="M512.551 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1265" d="M529.043 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1266" d="M545.535 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1267" d="M562.028 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1268" d="M578.52 443.09h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1269" d="M595.012 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1270" d="M611.504 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1271" d="M627.997 443.09h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1272" d="M644.489 443.09h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1273" d="M668.802 437.347v5.604h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.604z">
+</path>
+<path id="Vector_1274" d="M355.727 401.829v25.911h-2.176v-25.911z">
+</path>
+<path id="Vector_1275" d="M669.08 401.829v25.911h-2.177v-25.911z">
+</path>
+<path id="Vector_1276" d="M50.768 381.848H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1277" d="M67.26 381.848h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1278" d="M83.752 381.848h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1279" d="M100.244 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1280" d="M116.737 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1281" d="M133.229 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1282" d="M149.721 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1283" d="M166.213 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1284" d="M182.706 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1285" d="M199.198 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1286" d="M215.69 381.848h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1287" d="M232.182 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1288" d="M248.675 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1289" d="M265.167 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1290" d="M281.659 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1291" d="M298.151 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1292" d="M314.644 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1293" d="M331.136 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1294" d="M355.449 376.104v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1295" d="M364.12 381.848h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1296" d="M380.613 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1297" d="M397.105 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1298" d="M413.597 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1299" d="M430.089 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1300" d="M446.582 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1301" d="M463.074 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1302" d="M479.566 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1303" d="M496.059 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1304" d="M512.551 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1305" d="M529.043 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1306" d="M545.535 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1307" d="M562.028 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1308" d="M578.52 381.848h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1309" d="M595.012 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1310" d="M611.504 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1311" d="M627.997 381.848h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1312" d="M644.489 381.848h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1313" d="M668.802 376.104v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1314" d="M355.727 340.587v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1315" d="M669.08 340.587v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1316" d="M50.768 320.606H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1317" d="M67.26 320.606h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1318" d="M83.752 320.606h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1319" d="M100.244 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1320" d="M116.737 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1321" d="M133.229 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1322" d="M149.721 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1323" d="M166.213 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1324" d="M182.706 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1325" d="M199.198 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1326" d="M215.69 320.606h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1327" d="M232.182 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1328" d="M248.675 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1329" d="M265.167 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1330" d="M281.659 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1331" d="M298.151 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1332" d="M314.644 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1333" d="M331.136 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1334" d="M355.449 314.862v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1335" d="M364.12 320.606h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1336" d="M380.613 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1337" d="M397.105 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1338" d="M413.597 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1339" d="M430.089 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1340" d="M446.582 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1341" d="M463.074 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1342" d="M479.566 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1343" d="M496.059 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1344" d="M512.551 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1345" d="M529.043 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1346" d="M545.535 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1347" d="M562.028 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1348" d="M578.52 320.606h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1349" d="M595.012 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1350" d="M611.504 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1351" d="M627.997 320.606h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1352" d="M644.489 320.606h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1353" d="M668.802 314.862v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.605z">
+</path>
+</g>
+<path id="Vector_1354" fill="#999" d="M702.065 309.966v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1355" fill="#656565" d="m712.875 310.877 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1356" fill="#656565" d="m729.367 310.877 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1357" fill="#656565" d="m745.859 310.877 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1358" fill="#999" d="M702.065 279.345v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1359" fill="#656565" d="m712.875 280.256 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1360" fill="#656565" d="m729.367 280.256 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1361" fill="#656565" d="m745.859 280.256 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1362" fill="#999" d="M702.065 248.724v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1363" fill="#656565" d="m712.875 249.635 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1364" fill="#656565" d="m729.367 249.635 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1365" fill="#656565" d="m745.859 249.635 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1366" fill="#999" d="M702.065 218.103v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1367" fill="#656565" d="m712.875 219.014 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1368" fill="#656565" d="m729.367 219.014 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1369" fill="#656565" d="m745.859 219.014 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1370" fill="#999" d="M702.065 187.482v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1371" fill="#656565" d="m712.875 188.393 9.946 21.292h-2.404l-9.959-21.292z">
+</path>
+<path id="Vector_1372" fill="#656565" d="m729.367 188.393 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1373" fill="#656565" d="m745.859 188.393 9.947 21.292h-2.405l-9.959-21.292z">
+</path>
+<path id="Vector_1374" fill="#fff" d="M271.001 125.088h5.365v1.81h-3.037v19.483h3.037v1.809h-5.365z">
+</path>
+<path id="Vector_1375" fill="#999" d="M702.065 156.861v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1376" fill="#656565" d="m712.875 157.771 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1377" fill="#656565" d="m729.367 157.771 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1378" fill="#656565" d="m745.859 157.771 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1379" fill="#fff" d="M283.317 127.15h11.123v2.151h-8.554v5.061h7.757v2.15h-7.757v9.527h-2.569z">
+</path>
+<path id="Vector_1380" fill="#fff" d="M306.478 137.12a3.57 3.57 0 0 1 1.683.955q.696.702 1.734 2.802l2.569 5.162h-2.746l-2.253-4.77q-.974-2.037-1.752-2.625t-2.032-.588h-2.442v7.983h-2.569V127.15h5.265q3.113 0 4.77 1.405 1.658 1.404 1.658 4.061 0 1.872-1.019 3.055t-2.866 1.449m-5.239-7.869v6.705h2.797q1.834 0 2.733-.823.899-.822.899-2.517 0-1.632-.956-2.499t-2.777-.866z">
+</path>
+<path id="Vector_1381" fill="#fff" d="M324.805 136.614q0-4.162-.854-5.946t-2.803-1.784q-1.937 0-2.79 1.784-.854 1.784-.854 5.946 0 4.15.854 5.933.853 1.784 2.79 1.784 1.949 0 2.803-1.777.854-1.778.854-5.94m2.67 0q0 4.933-1.562 7.363-1.563 2.429-4.765 2.429t-4.758-2.417q-1.557-2.416-1.557-7.375 0-4.947 1.563-7.376t4.752-2.429q3.202 0 4.765 2.429t1.562 7.376">
+</path>
+<path id="Vector_1382" fill="#fff" d="M330.086 127.214h3.492l7.391 15.498v-15.498h2.72v18.825h-3.492l-7.391-15.498v15.498h-2.72z">
+</path>
+<path id="Vector_1383" fill="#fff" d="M346.932 127.15h14.414v2.151h-5.91v16.738h-2.569v-16.738h-5.935z">
+</path>
+<path id="Vector_1384" fill="#fff" d="M365.323 127.15h11.212v2.151h-8.656v5.086h8.276v2.151h-8.276v7.35h8.896v2.151h-11.452z">
+</path>
+<path id="Vector_1385" fill="#fff" d="M379.562 127.214h3.493l7.39 15.498v-15.498h2.721v18.825h-3.493l-7.39-15.498v15.498h-2.721z">
+</path>
+<path id="Vector_1386" fill="#fff" d="M401.332 143.939q3.226 0 4.505-1.588t1.278-5.737q0-4.188-1.272-5.776-1.272-1.587-4.511-1.587h-1.215v14.688zm.05-16.789q4.327 0 6.378 2.303 2.05 2.302 2.05 7.161 0 4.833-2.05 7.129t-6.378 2.296h-3.834V127.15z">
+</path>
+<path id="Vector_1387" fill="#fff" d="M421.418 125.088v23.102h-5.366v-1.809h3.037v-19.483h-3.037v-1.81z">
+</path>
+<path id="Vector_1388" fill="#999" d="M702.065 126.24v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1389" fill="#656565" d="m712.875 127.15 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1390" fill="#656565" d="m729.367 127.15 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1391" fill="#656565" d="m745.859 127.15 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1392" fill="#999" d="M702.065 95.618v25.911h-2.177v-25.91z">
+</path>
+<path id="Vector_1393" fill="#656565" d="m712.875 96.53 9.946 21.292h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1394" fill="#656565" d="m729.367 96.53 9.947 21.292h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1395" fill="#656565" d="m745.859 96.53 9.947 21.292h-2.405l-9.959-21.293z">
+</path>
+<g id="frontend" fill="#fff">
+<path id="Vector_1396" d="M42.096 69.894v5.604h5.631v2.138h-5.631v5.605H39.97v-5.605H34.35v-2.138h5.619v-5.604z">
+</path>
+<path id="Vector_1397" d="M42.374 95.618v25.911h-2.176v-25.91z">
+</path>
+<path id="Vector_1398" d="M42.374 126.24v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1399" d="M42.374 156.861v25.91h-2.176v-25.91z">
+</path>
+<path id="Vector_1400" d="M42.096 192.378v5.605h5.631v2.138h-5.631v5.604H39.97v-5.604H34.35v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1401" d="M50.768 198.122H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1402" d="M67.26 198.122h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1403" d="M83.752 198.122h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1404" d="M100.244 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1405" d="M116.737 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1406" d="M133.229 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1407" d="M149.721 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1408" d="M166.213 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1409" d="M182.706 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1410" d="M199.198 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1411" d="M215.69 198.122h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1412" d="M232.182 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1413" d="M248.675 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1414" d="M265.167 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1415" d="M281.659 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1416" d="M298.151 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1417" d="M314.644 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1418" d="M331.136 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1419" d="M347.628 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1420" d="M364.12 198.122h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1421" d="M380.613 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1422" d="M397.105 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1423" d="M413.597 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1424" d="M430.089 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1425" d="M446.582 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1426" d="M463.074 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1427" d="M479.566 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1428" d="M496.059 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1429" d="M512.551 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1430" d="M529.043 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1431" d="M545.535 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1432" d="M562.028 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1433" d="M578.52 198.122h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1434" d="M595.012 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1435" d="M611.504 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1436" d="M627.997 198.122h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1437" d="M644.489 198.122h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1438" d="M668.802 192.378v5.605h5.631v2.138h-5.631v5.604h-2.126v-5.604h-5.619v-2.138h5.619v-5.605z">
+</path>
+<path id="Vector_1439" d="M669.08 156.861v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1440" d="M669.08 126.24v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1441" d="M669.08 95.618v25.911h-2.177v-25.91z">
+</path>
+<path id="Vector_1442" d="M50.768 75.637H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1443" d="M67.26 75.637h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1444" d="M83.752 75.637h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1445" d="M100.244 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1446" d="M116.737 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1447" d="M133.229 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1448" d="M149.721 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1449" d="M166.213 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1450" d="M182.706 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1451" d="M199.198 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1452" d="M215.69 75.637h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1453" d="M232.182 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1454" d="M248.675 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1455" d="M265.167 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1456" d="M281.659 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1457" d="M298.151 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1458" d="M314.644 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1459" d="M331.136 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1460" d="M347.628 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1461" d="M364.12 75.637h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1462" d="M380.613 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1463" d="M397.105 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1464" d="M413.597 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1465" d="M430.089 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1466" d="M446.582 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1467" d="M463.074 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1468" d="M479.566 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1469" d="M496.059 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1470" d="M512.551 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1471" d="M529.043 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1472" d="M545.535 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1473" d="M562.028 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1474" d="M578.52 75.637h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1475" d="M595.012 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1476" d="M611.504 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1477" d="M627.997 75.637h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1478" d="M644.489 75.637h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1479" d="M668.802 69.894v5.604h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.619v-2.138h5.619v-5.604z">
+</path>
+</g>
+<path id="Vector_1480" fill="#999" d="M702.065 64.997v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1481" fill="#656565" d="m712.875 65.908 9.946 21.293h-2.404l-9.959-21.293z">
+</path>
+<path id="Vector_1482" fill="#656565" d="m729.367 65.908 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1483" fill="#656565" d="m745.859 65.908 9.947 21.293h-2.405l-9.959-21.293z">
+</path>
+<path id="Vector_1484" fill="#999" d="M702.065 34.376v25.91h-2.177v-25.91z">
+</path>
+<path id="Vector_1485" fill="#999" d="M17.783 14.395h13.414v2.138H17.783z">
+</path>
+<path id="Vector_1486" fill="#999" d="M34.275 14.395H47.69v2.138H34.275z">
+</path>
+<path id="Vector_1487" fill="#999" d="M50.768 14.395H64.18v2.138H50.768z">
+</path>
+<path id="Vector_1488" fill="#999" d="M67.26 14.395h13.414v2.138H67.26z">
+</path>
+<path id="Vector_1489" fill="#999" d="M83.752 14.395h13.414v2.138H83.752z">
+</path>
+<path id="Vector_1490" fill="#999" d="M100.244 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1491" fill="#999" d="M116.737 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1492" fill="#999" d="M133.229 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1493" fill="#999" d="M149.721 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1494" fill="#999" d="M166.213 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1495" fill="#999" d="M182.706 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1496" fill="#999" d="M199.198 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1497" fill="#999" d="M215.69 14.395h13.414v2.138H215.69z">
+</path>
+<path id="Vector_1498" fill="#999" d="M232.182 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1499" fill="#999" d="M248.675 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1500" fill="#999" d="M265.167 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1501" fill="#999" d="M281.659 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1502" fill="#999" d="M298.151 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1503" fill="#999" d="M314.644 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1504" fill="#999" d="M331.136 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1505" fill="#999" d="M347.628 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1506" fill="#999" d="M364.12 14.395h13.414v2.138H364.12z">
+</path>
+<path id="Vector_1507" fill="#999" d="M380.613 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1508" fill="#999" d="M397.105 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1509" fill="#999" d="M413.597 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1510" fill="#999" d="M430.089 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1511" fill="#999" d="M446.582 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1512" fill="#999" d="M463.074 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1513" fill="#999" d="M479.566 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1514" fill="#999" d="M496.059 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1515" fill="#999" d="M512.551 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1516" fill="#999" d="M529.043 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1517" fill="#999" d="M545.535 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1518" fill="#999" d="M562.028 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1519" fill="#999" d="M578.52 14.395h13.414v2.138H578.52z">
+</path>
+<path id="Vector_1520" fill="#999" d="M595.012 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1521" fill="#999" d="M611.504 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1522" fill="#999" d="M627.997 14.395h13.413v2.138h-13.413z">
+</path>
+<path id="Vector_1523" fill="#999" d="M644.489 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1524" fill="#999" d="M660.981 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1525" fill="#999" d="M677.473 14.395h13.414v2.138h-13.414z">
+</path>
+<path id="Vector_1526" fill="#999" d="M701.786 8.651v5.605h5.631v2.138h-5.631v5.605h-2.126v-5.605h-5.618v-2.138h5.618V8.651z">
+</path>
+</g>
+</svg>
+<div class="flex-1 relative">
+<div class="absolute left-0 top-[21%] -translate-y-1/2 pl-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:21%" data-index-right="21%">Store and manage all your secrets and configurations securely, no manual integration needed.<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-12 right-0">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+<div class="absolute left-0 top-[48%] -translate-y-1/2 pl-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:48%" data-index-right="48%">Spin up managed Postgres databases with bottomless storage, scaling and read replicas. All databases support vector and full-text search.<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-12 right-0">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+<div class="absolute left-0 top-[69%] -translate-y-1/2 pl-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" style="top:69%" data-index-right="69%">Store images, videos and other large files with our globally replicated S3-compatible storage.<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-12 right-0">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+</div>
+</div>
+<div class="hidden lg:block relative mx-auto w-md mt-12 transition-colors text-[#A2A2A2] group hover:text-white cursor-pointer" data-index-bottom="bottom">Replicate your infra into any number of environments and create preview environments in seconds with real data. Run your app locally with no setup, for the best developer experience.<div class="absolute top-full mt-1 font-mono text-2xl text-[#2366EC] overflow-hidden whitespace-nowrap transition-opacity opacity-0 group-hover:opacity-100 left-0 right-0">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div>
+</div>
+</section>
+<section class="mx-auto max-w-7xl px-6 py-32">
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-16 items-center">
+<div>
+<h2 class="text-3xl md:text-4xl font-medium text-white mb-4">Optimized for platforms</h2>
+<p class="text-lg text-foreground-muted mb-8">Specific is designed to integrate easily for platforms that use coding agents to build apps for end users.</p>
+<ul class="flex flex-col gap-2 mb-8">
+<li class="flex gap-4">
+<span class="text-[#2366ec] text-2xl font-bold shrink-0 font-mono leading-none">✳</span>
+<p class="text-[#cfcfcf] text-lg">Full dev environments inside sandboxes together with your agent</p>
+</li>
+<li class="flex gap-4">
+<span class="text-[#2366ec] text-2xl font-bold shrink-0 font-mono leading-none">✳</span>
+<p class="text-[#cfcfcf] text-lg">Unlimited number of projects with automatic scale-to-zero</p>
+</li>
+<li class="flex gap-4">
+<span class="text-[#2366ec] text-2xl font-bold shrink-0 font-mono leading-none">✳</span>
+<p class="text-[#cfcfcf] text-lg">Production deployments with branded domains and security baked in</p>
+</li>
+</ul>
+<a class="
+    inline-block
+    px-4 py-3
+    text-white font-medium text-center
+    border
+    rounded-[10px]
+    cursor-pointer
+    transition-all
+    hover:brightness-110
+    active:brightness-95
+    bg-[#252528] border-[#101012]
+    text-sm
+    
+  " style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+      0 2px 3px rgba(0, 0, 0, 0.1)" href="mailto:hello@specific.dev">Get in touch to learn more</a>
+</div>
+<div class="flex flex-col gap-6 w-full lg:max-w-[500px]">
+  <!-- Quote Card -->
+  <div class="bg-[#232326] rounded-2xl p-8 border border-white/[0.03] shadow-[inset_0_1px_1px_rgba(255,255,255,0.03)] relative overflow-hidden group">
+    <p class="text-[#e5e5e5] text-base leading-relaxed">Specific powers thousands of backends for our users&#x27; mobile apps. Integrating it with our custom coding agent was a breeze. Our users now get a seamless experience in going from idea to published app with a production-ready backend. We had been on the lookout in the market, tried other products and nothing compares.&quot;</p>
+    <a class="mt-8 flex items-center justify-between" href="https://newly.app">
+      <div class="flex items-center gap-3">
+        <img src="tim.jpeg" alt="Timothy Lindblom" class="w-10 h-10 rounded-full object-cover"/>
+        <div>
+          <p class="text-white text-sm font-medium">Timothy Lindblom</p>
+          <p class="text-[#a2a2a2] text-sm">Founder and CEO, Newly</p>
+        </div>
+      </div>
+      <img src="newly.svg" alt="Newly" class="h-6"/>
+    </a>
+  </div>
+  
+  <!-- Infrastructure Stat Panel -->
+  <div id="stats-panel" class="bg-[#171719] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-center items-center text-center relative overflow-hidden group shadow-[inset_0_1px_1px_rgba(255,255,255,0.03)]">
+    <div class="absolute inset-0 bg-radial-glow opacity-30 pointer-events-none"></div>
+    <div class="relative z-10">
+      <span class="text-[#2366EC] text-xs font-mono tracking-widest uppercase mb-2 block">Infrastructure Scale</span>
+      <div class="text-white text-5xl lg:text-6xl font-extrabold tracking-tight mb-2 font-mono flex items-center justify-center gap-1 select-none">
+        <span id="stats-counter" data-target="24850">0</span>
+        <span class="text-[#2366EC]">+</span>
+      </div>
+      <p class="text-[#A2A2A2] text-base font-normal">Projects Deployed Per Day</p>
+      
+      <div class="flex gap-4 mt-6 justify-center">
+        <div class="flex items-center gap-1.5 text-xs text-[#6D6D6D]">
+          <span class="w-1.5 h-1.5 bg-[#22C55E] rounded-full animate-pulse"></span>
+          Active builds: <span class="text-[#cfcfcf] font-mono">1,492/min</span>
+        </div>
+        <div class="w-px h-3 bg-white/[0.1] self-center"></div>
+        <div class="flex items-center gap-1.5 text-xs text-[#6D6D6D]">
+          Average latency: <span class="text-[#cfcfcf] font-mono">124ms</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<div>
+<div class="text-[#515151] opacity-30 overflow-hidden whitespace-nowrap select-none" style="font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
+<section class="mx-auto max-w-7xl px-6 py-12 md:py-20">
+<div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+<h2 class="text-2xl md:text-4xl font-medium text-white">Install and start building in seconds</h2>
+<button class="
+          inline-block
+          px-4 py-3
+          text-white font-medium text-center
+          border
+          rounded-[10px]
+          cursor-pointer
+          transition-all
+          hover:brightness-110
+          active:brightness-95
+          bg-[#2366EC] border-[#03308B]
+          text-lg px-6 py-4
+          
+        " style="box-shadow:inset 0 1px 3px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 3px rgba(0, 0, 0, 0.3),
+      0 2px 3px rgba(0, 0, 0, 0.1)">Get started now</button>
+</div>
+</section>
+</div>
+<div class="text-[#515151] opacity-30 overflow-hidden whitespace-nowrap select-none" style="font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</div>
+<!--$-->
+<!--/$-->
+</main>
+<footer class="relative z-50">
+<div class="mx-auto max-w-7xl px-6 py-12 md:py-16">
+<div class="flex flex-col md:flex-row md:justify-between md:items-start gap-12">
+<div class="flex flex-col gap-8 md:max-w-xs">
+<img alt="Specific" loading="lazy" width="120" height="28" decoding="async" data-nimg="1" style="color:transparent" src="logo.svg"/>
+<div class="flex flex-col gap-3">
+<p class="text-foreground-muted text-sm">This site is hosted on Specific (of course)</p>
+<a href="mailto:hello@specific.dev" class="text-foreground-muted hover:text-white transition-colors text-sm">
+hello@specific.dev
+</a>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-12 md:gap-16">
+<div class="flex flex-col gap-4">
+<h3 class="text-[#888888] text-sm font-normal">Resources</h3>
+<ul class="flex flex-col gap-3">
+<li>
+<a href="https://docs.specific.dev" class="text-white hover:text-foreground-muted transition-colors text-sm">Docs</a>
+</li>
+<li>
+<a href="https://specific.dev/pricing" class="text-white hover:text-foreground-muted transition-colors text-sm">Pricing</a>
+</li>
+<li>
+<a href="https://specific.dev/blog" class="text-white hover:text-foreground-muted transition-colors text-sm">Blog</a>
+</li>
+<li>
+<a href="https://dashboard.specific.dev" class="text-white hover:text-foreground-muted transition-colors text-sm">Dashboard</a>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[#888888] text-sm font-normal">Company</h3>
+<ul class="flex flex-col gap-3">
+<li>
+<a href="https://specific.dev/about" class="text-white hover:text-foreground-muted transition-colors text-sm">About</a>
+</li>
+<li>
+<a href="https://specific.dev/careers" class="text-white hover:text-foreground-muted transition-colors text-sm">Careers</a>
+</li>
+<li>
+<a href="mailto:hello@specific.dev" class="text-white hover:text-foreground-muted transition-colors text-sm">Contact</a>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[#888888] text-sm font-normal">Social</h3>
+<ul class="flex flex-col gap-3">
+<li>
+<a href="https://x.com/specific_dev" class="text-white hover:text-foreground-muted transition-colors text-sm">X</a>
+</li>
+<li>
+<a href="https://linkedin.com/company/specific-dev" class="text-white hover:text-foreground-muted transition-colors text-sm">LinkedIn</a>
+</li>
+<li>
+<a href="https://github.com/specific-dev" class="text-white hover:text-foreground-muted transition-colors text-sm">GitHub</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    <!-- Brand Centered Logo at the very bottom -->
+    <div class="mt-16 pt-8 border-t border-white/[0.05] text-center select-none overflow-hidden">
+      <span class="inline-block text-[clamp(2.5rem,8vw,8.5rem)] font-extrabold tracking-[0.18em] text-[#1D1D20] uppercase leading-none font-sans transition-all duration-300 hover:text-white/10">Specific</span>
+    </div>
+</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="main.js"></script>
+</body>
+</html>

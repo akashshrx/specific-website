@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  
+  --color-bg: #101011;
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #A2A2A2;
+  --color-foreground-muted: #A2A2A2;
+  --color-accent-blue: #2366EC;
+  --color-accent-blue-dark: #03308B;
+  
+  --color-terminal-bg: #28282C;
+  --color-border: #515151;
+}
+
+:root {
+  --background: #101011;
+  --color-bg: #101011;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.radial-glow {
+  background: radial-gradient(ellipse 140% 120% at 50% 100%, rgba(70, 70, 70, 1) 0%, rgba(60, 60, 60, 0.8) 20%, rgba(50, 50, 50, 0.4) 35%, transparent 55%);
+}
+
+.glass-card {
+  background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.07) 100%);
+}
+
+/* Custom interactive graphics CSS */
+.building-blocks-svg path {
+  transition: stroke 0.3s ease, fill 0.3s ease, opacity 0.3s ease;
+}
+
+.building-blocks-svg path.active {
+  fill: #2366EC !important;
+  stroke: #2366EC !important;
+  opacity: 1 !important;
+}
+
+/* --- Floating animations for logo grid --- */
+.float-logo {
+  animation: floatAnim 3s ease-in-out infinite alternate;
+}
+
+.float-logo:nth-child(2n) {
+  animation-duration: 3.5s;
+  animation-delay: 0.2s;
+}
+.float-logo:nth-child(3n) {
+  animation-duration: 4s;
+  animation-delay: 0.5s;
+}
+.float-logo:nth-child(4n) {
+  animation-duration: 4.5s;
+  animation-delay: 0.8s;
+}
+.float-logo:nth-child(5n) {
+  animation-duration: 5s;
+  animation-delay: 1.1s;
+}
+
+@keyframes floatAnim {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* --- Blinking Terminal Cursor --- */
+.animate-blink {
+  animation: blinkAnim 1s step-end infinite;
+}
+
+@keyframes blinkAnim {
+  from, to { background-color: transparent; }
+  50% { background-color: #2366EC; }
+}
+
+.terminal-cursor {
+  vertical-align: middle;
+}
+
+/* --- Infinite Marquee Carousel --- */
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft 18s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight 18s linear infinite;
+}
+
+/* Pause animation on hover to allow clicking logo cards */
+.hover\:pause:hover {
+  animation-play-state: paused;
+}
